@@ -61,11 +61,11 @@
         .nav-links a { color: var(--text-soft); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: var(--primary); }
         .nav-cta {
-            background: var(--primary); color: #0a0f1a; padding: 8px 20px;
+            background: transparent; color: var(--primary); padding: 8px 20px;
             border-radius: 8px; font-size: 0.875rem; font-weight: 700;
-            text-decoration: none; transition: background 0.2s;
+            text-decoration: none; transition: all 0.2s; border: 1px solid var(--primary);
         }
-        .nav-cta:hover { background: var(--primary-dark); }
+        .nav-cta:hover { background: rgba(0,212,255,0.1); border-color: var(--primary); }
         .nav-toggle { display: none; background: none; border: none; cursor: pointer; font-size: 1.5rem; color: var(--text); }
 
         /* === Hero === */
