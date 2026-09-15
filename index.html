@@ -279,6 +279,52 @@
             .pricing-card { padding: 28px 20px; }
         }
 
+        /* === Guide Videos === */
+        .guide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+        .guide-card {
+            background: #fff; border: 1px solid var(--border); border-radius: 12px;
+            overflow: hidden; box-shadow: var(--shadow); cursor: pointer;
+            transition: all 0.3s; position: relative;
+        }
+        .guide-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); border-color: var(--primary); }
+        .guide-thumb {
+            position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; background: #000;
+        }
+        .guide-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .guide-thumb::after {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 56px; height: 56px; background: rgba(255,0,0,0.85); border-radius: 50%;
+            transition: background 0.2s;
+        }
+        .guide-thumb::before {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            transform: translate(-40%, -50%);
+            border-left: 18px solid #fff; border-top: 12px solid transparent; border-bottom: 12px solid transparent;
+            z-index: 1;
+        }
+        .guide-card:hover .guide-thumb::after { background: #ff0000; }
+        .guide-info { padding: 16px 20px; }
+        .guide-info h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+        .guide-info p { font-size: 0.85rem; color: var(--text-soft); }
+        .guide-duration {
+            position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.75);
+            color: #fff; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px;
+        }
+        /* === Video Modal === */
+        .video-modal {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8); z-index: 200; align-items: center; justify-content: center;
+        }
+        .video-modal.open { display: flex; }
+        .video-modal-inner {
+            width: 90%; max-width: 800px; position: relative;
+        }
+        .video-modal-close {
+            position: absolute; top: -36px; right: 0; background: none; border: none;
+            color: #fff; font-size: 1.5rem; cursor: pointer;
+        }
+        .video-modal iframe { width: 100%; aspect-ratio: 16/9; border-radius: 12px; border: none; }
+
         /* === Anim === */
         .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
@@ -294,6 +340,7 @@
         <div class="nav-links" id="navLinks">
             <a href="#features">기능</a>
             <a href="#how">사용법</a>
+            <a href="#guides">가이드</a>
             <a href="#api">AI 연동</a>
             <a href="#pricing">가격</a>
             <a href="#faq">FAQ</a>
@@ -402,6 +449,86 @@
         </div>
     </div>
 </section>
+
+<!-- Guide Videos -->
+<section id="guides" class="api-section">
+    <div class="container">
+        <div class="section-title fade-in">
+            <h2>사용법 가이드 영상</h2>
+            <p>유튜브에서 단계별 사용법을 확인하세요. 각 영상을 클릭하면 바로 재생됩니다.</p>
+        </div>
+        <div class="guide-grid">
+            <div class="guide-card fade-in" onclick="openVideo('oFnMxmv0BuA')">
+                <div class="guide-thumb">
+                    <img src="https://img.youtube.com/vi/oFnMxmv0BuA/hqdefault.jpg" alt="커피time 가이드" loading="lazy">
+                    <span class="guide-duration">YouTube</span>
+                </div>
+                <div class="guide-info">
+                    <h3>커피time 가이드</h3>
+                    <p>MWeaver 전체 기능 둘러보기</p>
+                </div>
+            </div>
+            <div class="guide-card fade-in" onclick="openVideo('jrXK9kd-0_U')">
+                <div class="guide-thumb">
+                    <img src="https://img.youtube.com/vi/jrXK9kd-0_U/hqdefault.jpg" alt="문제 생성 가이드" loading="lazy">
+                    <span class="guide-duration">YouTube</span>
+                </div>
+                <div class="guide-info">
+                    <h3>문제 생성과 문제 은행 저장</h3>
+                    <p>1~10번 프롬프트 사용법, 일괄/반복 실행</p>
+                </div>
+            </div>
+            <div class="guide-card fade-in" onclick="openVideo('54ljzJqqtuY')">
+                <div class="guide-thumb">
+                    <img src="https://img.youtube.com/vi/54ljzJqqtuY/hqdefault.jpg" alt="문제은행 시험지 출력 가이드" loading="lazy">
+                    <span class="guide-duration">YouTube</span>
+                </div>
+                <div class="guide-info">
+                    <h3>문제은행과 시험지 출력</h3>
+                    <p>엑셀 문제 은행 관리, DOCX/HWPX/PDF 출력</p>
+                </div>
+            </div>
+            <div class="guide-card fade-in" onclick="openVideo('C62J6tI26Ds')">
+                <div class="guide-thumb">
+                    <img src="https://img.youtube.com/vi/C62J6tI26Ds/hqdefault.jpg" alt="학습자료 제작 가이드" loading="lazy">
+                    <span class="guide-duration">YouTube</span>
+                </div>
+                <div class="guide-info">
+                    <h3>학습자료 제작</h3>
+                    <p>한줄해석, 문법 분석, 빈칸/어순 연습지 생성</p>
+                </div>
+            </div>
+            <div class="guide-card fade-in" onclick="openVideo('b_c1pK6FyEU')">
+                <div class="guide-thumb">
+                    <img src="https://img.youtube.com/vi/b_c1pK6FyEU/hqdefault.jpg" alt="단어장 제작 가이드" loading="lazy">
+                    <span class="guide-duration">YouTube</span>
+                </div>
+                <div class="guide-info">
+                    <h3>영어 단어장 제작</h3>
+                    <p>어휘 추출, 단어 테스트지 자동 생성</p>
+                </div>
+            </div>
+            <div class="guide-card fade-in" onclick="openVideo('pEVIvBgYBdo')">
+                <div class="guide-thumb">
+                    <img src="https://img.youtube.com/vi/pEVIvBgYBdo/hqdefault.jpg" alt="API 설정 가이드" loading="lazy">
+                    <span class="guide-duration">YouTube</span>
+                </div>
+                <div class="guide-info">
+                    <h3>API 설정 가이드</h3>
+                    <p>Gemini/Mistral API 키 발급 및 커스텀 슬롯 설정</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Video Modal -->
+<div class="video-modal" id="videoModal" onclick="closeVideo(event)">
+    <div class="video-modal-inner">
+        <button class="video-modal-close" onclick="closeVideo(event)">&times;</button>
+        <iframe id="videoFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+</div>
 
 <!-- AI APIs -->
 <section id="api">
@@ -601,6 +728,22 @@
         });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Video modal
+    function openVideo(videoId) {
+        const modal = document.getElementById('videoModal');
+        const frame = document.getElementById('videoFrame');
+        frame.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+        modal.classList.add('open');
+    }
+    function closeVideo(e) {
+        if (e.target === e.currentTarget || e.target.classList.contains('video-modal-close')) {
+            const modal = document.getElementById('videoModal');
+            const frame = document.getElementById('videoFrame');
+            frame.src = '';
+            modal.classList.remove('open');
+        }
+    }
 </script>
 </body>
 </html>
