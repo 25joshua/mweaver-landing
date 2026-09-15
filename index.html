@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MWeaver - AI 영어 문제 출제 프로그램 | 고등 영어 문제 자동 생성</title>
+    <meta name="description" content="MWeaver는 AI 기반 영어 문제 출제 프로그램입니다. 지문 입력만으로 객관식 9유형, 서술형 7유형, 학습 자료, 어휘 자료를 자동 생성합니다. 고등 영어 서술형/서답형/객관식 문제 출제에 최적화되어 있습니다.">
+    <meta name="keywords" content="영어 문제 출제 프로그램, AI 영어 문제 생성, 고등 영어 문제 출제, 고등 영어 서술형 문제 출제, 고등 영어 서답형 문제 출제, 고등 영어 객관식 문제 출제, 영어 시험지 자동 생성, AI 문제 출제">
+    <meta property="og:title" content="MWeaver - AI 영어 문제 출제 프로그램">
+    <meta property="og:description" content="지문 입력만으로 19가지 유형의 영어 문제를 AI가 자동 생성합니다. 고등 영어 교사를 위한 최적의 출제 도구.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-light: #dbeafe;
+            --accent: #f59e0b;
+            --accent-dark: #d97706;
+            --bg: #ffffff;
+            --bg-soft: #f8fafc;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-soft: #64748b;
+            --border: #e2e8f0;
+            --radius: 12px;
+            --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+        /* === Nav === */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            transition: padding 0.3s;
+        }
+        nav .container {
+            display: flex; align-items: center; justify-content: space-between;
+            padding-top: 14px; padding-bottom: 14px;
+            transition: padding 0.3s;
+        }
+        nav.scrolled .container { padding-top: 8px; padding-bottom: 8px; }
+        .nav-logo { font-size: 1.25rem; font-weight: 800; color: var(--primary); text-decoration: none; letter-spacing: -0.5px; }
+        .nav-links { display: flex; gap: 28px; align-items: center; }
+        .nav-links a { color: var(--text-soft); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-cta {
+            background: var(--primary); color: #fff; padding: 8px 20px;
+            border-radius: 8px; font-size: 0.875rem; font-weight: 600;
+            text-decoration: none; transition: background 0.2s;
+        }
+        .nav-cta:hover { background: var(--primary-dark); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; font-size: 1.5rem; color: var(--text); }
+
+        /* === Hero === */
+        .hero {
+            padding: 140px 0 80px;
+            background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 50%, #fff7ed 100%);
+            text-align: center;
+        }
+        .hero-badge {
+            display: inline-block; background: var(--primary-light); color: var(--primary-dark);
+            padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800;
+            letter-spacing: -1.5px; line-height: 1.2; margin-bottom: 20px;
+        }
+        .hero h1 span { color: var(--primary); }
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem); color: var(--text-soft);
+            max-width: 640px; margin: 0 auto 36px;
+        }
+        .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary {
+            background: var(--primary); color: #fff; padding: 14px 32px;
+            border-radius: 10px; font-size: 1rem; font-weight: 700; text-decoration: none;
+            transition: all 0.2s; box-shadow: 0 4px 14px rgba(37,99,235,0.25);
+        }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,0.3); }
+        .btn-secondary {
+            background: #fff; color: var(--text); padding: 14px 32px;
+            border-radius: 10px; font-size: 1rem; font-weight: 600; text-decoration: none;
+            border: 1px solid var(--border); transition: all 0.2s;
+        }
+        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+        .hero-stats {
+            display: flex; gap: 48px; justify-content: center; margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        .hero-stat { text-align: center; }
+        .hero-stat-num { font-size: 2rem; font-weight: 800; color: var(--primary); }
+        .hero-stat-label { font-size: 0.85rem; color: var(--text-soft); margin-top: 4px; }
+
+        /* === Section === */
+        section { padding: 80px 0; }
+        .section-title { text-align: center; margin-bottom: 56px; }
+        .section-title h2 {
+            font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800;
+            letter-spacing: -1px; margin-bottom: 12px;
+        }
+        .section-title p { color: var(--text-soft); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+
+        /* === Feature Cards === */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .feature-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        .feature-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); border-color: var(--primary-light); }
+        .feature-icon {
+            width: 48px; height: 48px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 16px;
+        }
+        .feature-icon.blue { background: #dbeafe; }
+        .feature-icon.amber { background: #fef3c7; }
+        .feature-icon.green { background: #d1fae5; }
+        .feature-icon.purple { background: #ede9fe; }
+        .feature-icon.rose { background: #ffe4e6; }
+        .feature-icon.cyan { background: #cffafe; }
+        .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .feature-card p { color: var(--text-soft); font-size: 0.92rem; }
+
+        /* === Steps === */
+        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; }
+        .step { text-align: center; position: relative; }
+        .step-num {
+            width: 56px; height: 56px; border-radius: 50%;
+            background: var(--primary); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; font-weight: 800; margin: 0 auto 20px;
+        }
+        .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .step p { color: var(--text-soft); font-size: 0.92rem; }
+
+        /* === API Section === */
+        .api-section { background: var(--bg-soft); }
+        .api-badges { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 32px; }
+        .api-badge {
+            background: #fff; border: 1px solid var(--border); border-radius: 10px;
+            padding: 12px 20px; font-weight: 600; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 8px; box-shadow: var(--shadow);
+        }
+        .api-badge.built-in { border-color: var(--primary); color: var(--primary); }
+        .api-badge.custom { border-color: var(--accent); color: var(--accent-dark); }
+        .api-badge .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .api-badge.built-in .dot { background: var(--primary); }
+        .api-badge.custom .dot { background: var(--accent); }
+
+        /* === Output Formats === */
+        .format-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .format-tag {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 8px; padding: 10px 20px; font-weight: 600; font-size: 0.9rem;
+            box-shadow: var(--shadow);
+        }
+
+        /* === Pricing === */
+        .pricing-section { background: var(--bg-soft); }
+        .pricing-card {
+            background: #fff; border: 2px solid var(--border); border-radius: 16px;
+            padding: 40px; max-width: 480px; margin: 0 auto; text-align: center;
+            box-shadow: var(--shadow-lg); position: relative;
+        }
+        .pricing-card .ribbon {
+            position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+            background: var(--accent); color: #fff; padding: 6px 20px;
+            border-radius: 20px; font-size: 0.8rem; font-weight: 700;
+        }
+        .pricing-price { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin: 20px 0; }
+        .pricing-price small { font-size: 1rem; font-weight: 500; color: var(--text-soft); }
+        .pricing-features { text-align: left; margin: 28px 0; }
+        .pricing-features li {
+            list-style: none; padding: 8px 0; padding-left: 28px; position: relative;
+            font-size: 0.95rem; color: var(--text);
+        }
+        .pricing-features li::before {
+            content: ""; position: absolute; left: 0; top: 12px;
+            width: 18px; height: 18px; background: var(--primary-light);
+            border-radius: 50%;
+        }
+        .pricing-features li::after {
+            content: "\2713"; position: absolute; left: 4px; top: 8px;
+            color: var(--primary); font-weight: 700; font-size: 0.8rem;
+        }
+        .pricing-sub {
+            background: var(--primary-light); border-radius: 12px;
+            padding: 20px; margin-top: 24px; text-align: left;
+        }
+        .pricing-sub h4 { font-size: 0.95rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; }
+        .pricing-sub p { font-size: 0.88rem; color: var(--text-soft); }
+
+        /* === Trial === */
+        .trial-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 16px; padding: 40px; text-align: center; color: #fff;
+            margin-top: 32px;
+        }
+        .trial-banner h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+        .trial-banner p { opacity: 0.9; font-size: 1rem; margin-bottom: 20px; }
+        .trial-banner .btn-white {
+            background: #fff; color: var(--primary); padding: 12px 28px;
+            border-radius: 10px; font-weight: 700; text-decoration: none;
+            display: inline-block; transition: transform 0.2s;
+        }
+        .trial-banner .btn-white:hover { transform: translateY(-2px); }
+
+        /* === FAQ === */
+        .faq-list { max-width: 720px; margin: 0 auto; }
+        .faq-item {
+            border: 1px solid var(--border); border-radius: 10px;
+            margin-bottom: 12px; overflow: hidden;
+        }
+        .faq-q {
+            width: 100%; text-align: left; background: #fff; border: none;
+            padding: 18px 24px; font-size: 1rem; font-weight: 600;
+            cursor: pointer; display: flex; justify-content: space-between;
+            align-items: center; color: var(--text); font-family: inherit;
+        }
+        .faq-q .arrow { transition: transform 0.3s; color: var(--text-soft); }
+        .faq-item.open .faq-q .arrow { transform: rotate(180deg); }
+        .faq-a {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+            background: var(--bg-soft);
+        }
+        .faq-item.open .faq-a { max-height: 400px; }
+        .faq-a-inner { padding: 18px 24px; color: var(--text-soft); font-size: 0.92rem; line-height: 1.7; }
+
+        /* === Contact === */
+        .contact-section { background: var(--bg-soft); text-align: center; }
+        .contact-cards { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+        .contact-card {
+            background: #fff; border: 1px solid var(--border); border-radius: 12px;
+            padding: 28px 36px; text-decoration: none; color: var(--text);
+            transition: all 0.2s; box-shadow: var(--shadow); min-width: 200px;
+        }
+        .contact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .contact-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+        .contact-card p { font-size: 0.88rem; color: var(--text-soft); }
+
+        /* === Footer === */
+        footer { background: #1e293b; color: #94a3b8; padding: 40px 0; text-align: center; }
+        footer p { font-size: 0.85rem; margin-bottom: 4px; }
+        footer a { color: #94a3b8; text-decoration: none; }
+        footer a:hover { color: #fff; }
+
+        /* === Responsive === */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-toggle { display: block; }
+            .nav-links.open {
+                display: flex; flex-direction: column; position: absolute;
+                top: 100%; left: 0; right: 0; background: #fff;
+                padding: 20px; gap: 16px; border-bottom: 1px solid var(--border);
+            }
+            .hero { padding: 100px 0 60px; }
+            .hero-stats { gap: 24px; }
+            .hero-stat-num { font-size: 1.5rem; }
+            section { padding: 60px 0; }
+            .pricing-card { padding: 28px 20px; }
+        }
+
+        /* === Anim === */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav id="nav">
+    <div class="container">
+        <a href="#" class="nav-logo">MWeaver</a>
+        <button class="nav-toggle" onclick="toggleNav()">&#9776;</button>
+        <div class="nav-links" id="navLinks">
+            <a href="#features">기능</a>
+            <a href="#how">사용법</a>
+            <a href="#api">AI 연동</a>
+            <a href="#pricing">가격</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">문의</a>
+            <a href="https://naver.me/xoQYfYJQ" target="_blank" class="nav-cta">다운로드</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <div class="container">
+        <div class="hero-badge">v1.2.1 | Windows 10 이상</div>
+        <h1>AI로 영어 문제를<br><span>1분 만에 자동 출제</span></h1>
+        <p>지문 입력만으로 객관식 9유형, 서술형 7유형, 학습 자료, 어휘 자료까지. 고등 영어 교사를 위한 올인원 출제 도구.</p>
+        <div class="hero-cta">
+            <a href="https://naver.me/xoQYfYJQ" target="_blank" class="btn-primary">무료로 체험하기 (300회)</a>
+            <a href="#features" class="btn-secondary">기능 둘러보기</a>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="hero-stat-num">19</div>
+                <div class="hero-stat-label">문제 유형</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-num">6+</div>
+                <div class="hero-stat-label">AI API 연동</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-num">5</div>
+                <div class="hero-stat-label">출력 포맷</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-num">300</div>
+                <div class="hero-stat-label">무료 체험</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features -->
+<section id="features">
+    <div class="container">
+        <div class="section-title fade-in">
+            <h2>19가지 문제 유형, 한 번에</h2>
+            <p>객관식부터 서술형까지, 영어 시험에 필요한 모든 유형을 AI가 자동 생성합니다.</p>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon blue">&#128221;</div>
+                <h3>객관식 9유형</h3>
+                <p>제목/요지/내용일치/요약, 빈칸 추론, 어휘, 밑줄 의미, 서답형 요약, 괄호형 어법, 문장 순서 배열, 문장 삽입 위치, 어법 문제</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon purple">&#9999;</div>
+                <h3>서술형 7유형</h3>
+                <p>지문 근거 단답형, 지칭 대상 이해형, 문장 변환형, 어휘 응용/문맥 수정형, 질문·답변 빈칸 완성형, 내용 설명·비교형, 주장·근거·해결방안형</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon green">&#128214;</div>
+                <h3>학습 자료 자동 생성</h3>
+                <p>한줄해석 + AI 문법 분석, 해석 TEST지, 단어 배열 TEST지, 빈칸 연습지, 영작 연습지. 50+ 내장 문법 규칙과 AI 분석 결합</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon amber">&#128218;</div>
+                <h3>어휘 학습 자료</h3>
+                <p>지문에서 어휘 후보 자동 추출, AI 맥락 반영 의미/유의어/반의어 생성, 단어장 및 단어 테스트지 자동 제작</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon cyan">&#128202;</div>
+                <h3>엑셀 문제 은행</h3>
+                <p>생성된 문제를 엑셀로 저장, 조건별 필터링, 자동 선택으로 시험지 구성. 저장소 관리 시스템 내장</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon rose">&#128273;</div>
+                <h3>학생용/교사용 분리 출력</h3>
+                <p>학생용 문제지와 교사용 정답·해설지를 분리하여 생성. 서술형도 학생용/교사용 답지 분리 구조 지원</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How to Use -->
+<section id="how" class="api-section">
+    <div class="container">
+        <div class="section-title fade-in">
+            <h2>3단계로 완성</h2>
+            <p>복잡한 설정 없이, 지문만 입력하면 됩니다.</p>
+        </div>
+        <div class="steps">
+            <div class="step fade-in">
+                <div class="step-num">1</div>
+                <h3>지문 입력</h3>
+                <p>영어 지문과 한글 해석을 입력합니다. 클립보드 붙여넣기 자동 분리, 지문 관리 창에서 다중 지문 관리도 가능합니다.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-num">2</div>
+                <h3>AI 자동 생성</h3>
+                <p>원하는 문제 유형을 선택하고 실행 버튼을 누르면, AI가 지문을 분석하여 문제, 정답, 해설을 자동 생성합니다.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-num">3</div>
+                <h3>저장 및 출력</h3>
+                <p>HTML, PDF, DOCX(한워드/MS Word), HWPX(한컴오피스 한글), 엑셀로 저장. 학생용/교사용 분리 출력 지원.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AI APIs -->
+<section id="api">
+    <div class="container">
+        <div class="section-title fade-in">
+            <h2>유연한 AI 연동</h2>
+            <p>Gemini, Mistral 내장 + 4개 커스텀 슬롯으로 원하는 AI를 자유롭게 선택하세요.</p>
+        </div>
+        <div class="api-badges fade-in">
+            <div class="api-badge built-in"><span class="dot"></span> Gemini (내장)</div>
+            <div class="api-badge built-in"><span class="dot"></span> Mistral (내장)</div>
+            <div class="api-badge custom"><span class="dot"></span> Custom 슬롯 1</div>
+            <div class="api-badge custom"><span class="dot"></span> Custom 슬롯 2</div>
+            <div class="api-badge custom"><span class="dot"></span> Custom 슬롯 3</div>
+            <div class="api-badge custom"><span class="dot"></span> Custom 슬롯 4</div>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon blue">&#9889;</div>
+                <h3>내장 API (2개)</h3>
+                <p>Google Gemini와 Mistral AI는 API 키만 입력하면 바로 사용 가능. 별도 설정 불필요.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon amber">&#128268;</div>
+                <h3>커스텀 슬롯 (4개)</h3>
+                <p>OpenAI 호환 API라면 모두 연동 가능. OpenAI, Claude, Perplexity, Cohere, Groq, OpenRouter, DeepSeek, Fireworks AI, Together AI, Ollama(로컬) 등.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon green">&#128176;</div>
+                <h3>비용 최적화</h3>
+                <p>무료 모델(OpenRouter 무료 티어, Groq 무료 크레딧, Ollama 로컬)부터 프리미엄(GPT-4o, Claude)까지 선택 가능. 프리셋 1클릭 설정 지원.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Output Formats -->
+<section class="api-section">
+    <div class="container">
+        <div class="section-title fade-in">
+            <h2>5가지 출력 포맷 지원</h2>
+            <p>어떤 환경에서도 바로 사용할 수 있습니다.</p>
+        </div>
+        <div class="format-grid fade-in">
+            <div class="format-tag">HTML</div>
+            <div class="format-tag">PDF</div>
+            <div class="format-tag">DOCX (MS Word / 한워드)</div>
+            <div class="format-tag">HWPX (한컴오피스 한글)</div>
+            <div class="format-tag">Excel (엑셀 문제 은행)</div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing" class="pricing-section">
+    <div class="container">
+        <div class="section-title fade-in">
+            <h2>가격 및 라이선스</h2>
+            <p>한 번 구매로 영구 사용. 업데이트는 선택.</p>
+        </div>
+        <div class="pricing-card fade-in">
+            <div class="ribbon">영구 라이선스</div>
+            <h3 style="font-size:1.25rem; font-weight:700;">MWeaver Pro Multi-PC</h3>
+            <div class="pricing-price">450,000<small>원 (VAT 별도)</small></div>
+            <ul class="pricing-features">
+                <li>영구 라이선스 (1회 구매)</li>
+                <li>1년간 무료 업데이트 (365일)</li>
+                <li>Multi-PC 지원 (PC 교체 1회 무료)</li>
+                <li>19가지 문제 유형 전체 사용</li>
+                <li>학습 자료 / 어휘 자료 기능</li>
+                <li>5가지 출력 포맷 (HTML/PDF/DOCX/HWPX/Excel)</li>
+                <li>체험판 300회 무료 (구매 전)</li>
+                <li>365일 오프라인 유예 후 영구 오프라인 모드</li>
+            </ul>
+            <div class="pricing-sub">
+                <h4>유료 업데이트 (선택) — 150,000원/년</h4>
+                <p>무료 업데이트 기간(1년) 만료 후, 연간 15만원으로 업데이트 연장 가능. 미갱신 시에도 프로그램 영구 사용 가능 (신규 버전 다운로드만 제한).</p>
+            </div>
+            <a href="https://open.kakao.com/o/sdsgOiNh" target="_blank" class="btn-primary" style="margin-top:24px; display:inline-block;">카카오톡으로 구매 문의</a>
+        </div>
+        <div class="trial-banner fade-in">
+            <h3>먼저 무료로 체험해 보세요</h3>
+            <p>정품 인증 없이도 300회 무료 사용 가능합니다.</p>
+            <a href="https://naver.me/xoQYfYJQ" target="_blank" class="btn-white">다운로드 및 체험 시작</a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+    <div class="container">
+        <div class="section-title fade-in">
+            <h2>자주 묻는 질문</h2>
+        </div>
+        <div class="faq-list fade-in">
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFAQ(this)">API 키는 어떻게 구하나요? <span class="arrow">&#9662;</span></button>
+                <div class="faq-a"><div class="faq-a-inner">
+                    Gemini API 키는 <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>에서 무료로 발급받을 수 있습니다. Mistral API 키는 <a href="https://console.mistral.ai/api-keys" target="_blank">Mistral AI Console</a>에서 발급 가능합니다. 커스텀 슬롯은 OpenAI, Groq, OpenRouter 등 각 서비스 공식 웹사이트에서 API 키를 발급받아 입력하면 됩니다.
+                </div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFAQ(this)">무료 체험판 제한이 있나요? <span class="arrow">&#9662;</span></button>
+                <div class="faq-a"><div class="faq-a-inner">
+                    정품 인증 없이 300회까지 무료로 사용할 수 있습니다. 체험판 사용량은 서버에서 관리되며, 모든 기능을 동일하게 사용할 수 있습니다. 300회 소진 후에는 정품 인증이 필요합니다.
+                </div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFAQ(this)">구매 후 PC를 바꾸면 어떻게 되나요? <span class="arrow">&#9662;</span></button>
+                <div class="faq-a"><div class="faq-a-inner">
+                    Multi-PC 버전은 1회 무료 PC 교체를 지원합니다. 카카오톡 문의를 통해 라이선스 해제 후 새 PC에서 재인증할 수 있습니다. 또한 구매 후 365일 경과 시 서버 연결 없이 영구 작동하는 오프라인 모드로 전환됩니다.
+                </div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFAQ(this)">유료 업데이트를 안 하면 프로그램이 멈추나요? <span class="arrow">&#9662;</span></button>
+                <div class="faq-a"><div class="faq-a-inner">
+                    아닙니다. 유료 업데이트(15만원/년)는 신규 버전 다운로드 권한만 관리합니다. 업데이트를 갱신하지 않아도 현재 버전의 프로그램은 영구적으로 모든 기능을 사용할 수 있습니다.
+                </div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFAQ(this)">어떤 AI API가 가장 추천되나요? <span class="arrow">&#9662;</span></button>
+                <div class="faq-a"><div class="faq-a-inner">
+                    무료로 시작하려면 Google Gemini 무료 티어를 추천합니다. 문법 분석 등 정확도가 중요한 작업에는 Fireworks AI DeepSeek V4 Flash($0.22/1M 입력 토큰)가 가성비가 좋습니다. 커스텀 슬롯에 OpenRouter를 설정하면 100개 이상의 모델을 하나의 API 키로 사용할 수 있습니다.
+                </div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFAQ(this)">인터넷 없이 사용할 수 있나요? <span class="arrow">&#9662;</span></button>
+                <div class="faq-a"><div class="faq-a-inner">
+                    문제 생성을 위해서는 AI API 호출이 필요하므로 인터넷 연결이 필요합니다. 단, Ollama나 LM Studio를 커스텀 슬롯에 설정하면 로컬 AI 모델로 인터넷 없이 문제 생성이 가능합니다. 라이선스 검증은 구매 후 365일 경과 시 영구 오프라인 모드로 전환되어 서버 연결 없이 작동합니다.
+                </div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFAQ(this)">바이러스 백신이 감지합니다. <span class="arrow">&#9662;</span></button>
+                <div class="faq-a"><div class="faq-a-inner">
+                    PyInstaller로 빌드된 실행 파일은 일부 백신에서 오탐지될 수 있습니다. MWeaver는 악성코드가 포함되어 있지 않으며, Windows Defender 예외 설정 또는 관리자 권한 실행으로 해결할 수 있습니다.
+                </div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <div class="section-title fade-in">
+            <h2>문의 및 구매</h2>
+            <p>궁금한 점이 있거나 구매를 원하시면 언제든 연락 주세요.</p>
+        </div>
+        <div class="contact-cards fade-in">
+            <a href="https://open.kakao.com/o/sdsgOiNh" target="_blank" class="contact-card">
+                <h4>&#128172; 카카오톡 상담</h4>
+                <p>오픈채팅으로 문의하기</p>
+            </a>
+            <a href="mailto:mweaver@daum.net" class="contact-card">
+                <h4>&#9993; 이메일</h4>
+                <p>mweaver@daum.net</p>
+            </a>
+            <a href="https://naver.me/xoQYfYJQ" target="_blank" class="contact-card">
+                <h4>&#11015; 다운로드</h4>
+                <p>네이버 MYBOX</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p>MWeaver HTMLBank v1.2.1 &mdash; AI 기반 영어 문제 자동 출제 프로그램</p>
+        <p>&copy; 2025-2026 MWeaver Team. All rights reserved.</p>
+        <p style="margin-top:8px;"><a href="https://open.kakao.com/o/sdsgOiNh" target="_blank">카카오톡 문의</a> | <a href="mailto:mweaver@daum.net">이메일</a></p>
+    </div>
+</footer>
+
+<script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+    });
+
+    // Mobile nav toggle
+    function toggleNav() {
+        document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    // FAQ toggle
+    function toggleFAQ(btn) {
+        btn.parentElement.classList.toggle('open');
+    }
+
+    // Scroll fade-in
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) e.target.classList.add('visible');
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
