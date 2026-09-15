@@ -91,11 +91,11 @@
         }
         .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
         .btn-primary {
-            background: var(--primary); color: #0a0f1a; padding: 14px 32px;
+            background: transparent; color: var(--primary); padding: 14px 32px;
             border-radius: 10px; font-size: 1rem; font-weight: 700; text-decoration: none;
-            transition: all 0.2s; box-shadow: 0 4px 14px rgba(0,212,255,0.25);
+            transition: all 0.2s; border: 1px solid var(--primary);
         }
-        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,212,255,0.4); }
+        .btn-primary:hover { background: rgba(0,212,255,0.1); border-color: var(--primary); transform: translateY(-2px); }
         .btn-secondary {
             background: transparent; color: var(--text); padding: 14px 32px;
             border-radius: 10px; font-size: 1rem; font-weight: 600; text-decoration: none;
@@ -221,11 +221,11 @@
         .trial-banner h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 8px; }
         .trial-banner p { opacity: 0.9; font-size: 1rem; margin-bottom: 20px; }
         .trial-banner .btn-white {
-            background: var(--primary); color: #0a0f1a; padding: 12px 28px;
+            background: transparent; color: var(--primary); padding: 12px 28px;
             border-radius: 10px; font-weight: 700; text-decoration: none;
-            display: inline-block; transition: transform 0.2s;
+            display: inline-block; transition: all 0.2s; border: 1px solid var(--primary);
         }
-        .trial-banner .btn-white:hover { transform: translateY(-2px); }
+        .trial-banner .btn-white:hover { background: rgba(0,212,255,0.1); border-color: var(--primary); transform: translateY(-2px); }
 
         /* === FAQ === */
         .faq-list { max-width: 720px; margin: 0 auto; }
