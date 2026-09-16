@@ -339,12 +339,25 @@
             position: relative; overflow: hidden;
             box-shadow: 0 8px 30px rgba(0,0,0,0.4), -4px 0 0 rgba(0,212,255,0.15);
             border: 1px solid var(--border);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 24px 20px;
         }
-        .sample-book-cover img { width: 100%; height: 100%; object-fit: cover; }
         .sample-book-cover::before {
             content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
             background: linear-gradient(90deg, rgba(0,0,0,0.3), transparent);
             z-index: 2;
+        }
+        .sample-book-cover::after {
+            content: ''; position: absolute; top: 0; left: 8px; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+        .book-cover-icon { font-size: 2.5rem; margin-bottom: 16px; }
+        .book-cover-title { font-size: 1.05rem; font-weight: 800; color: var(--text); line-height: 1.4; margin-bottom: 8px; }
+        .book-cover-sub { font-size: 0.75rem; color: var(--text-soft); line-height: 1.5; }
+        .book-cover-badge {
+            margin-top: 14px; font-size: 0.7rem; color: var(--primary);
+            border: 1px solid rgba(0,212,255,0.3); padding: 3px 10px; border-radius: 12px;
+            background: rgba(0,212,255,0.08);
         }
         .sample-book-title {
             text-align: center; margin-top: 16px; font-size: 0.95rem; font-weight: 700;
@@ -529,24 +542,33 @@
         <div class="sample-grid">
             <div class="sample-book fade-in" onclick="openBook('obj-subj', 6, '객관식 / 서술형 문제')">
                 <div class="sample-book-cover">
-                    <img src="samples/obj-subj/page-1.png" alt="객관식/서술형 문제 샘플" loading="lazy">
+                    <div class="book-cover-icon">&#128221;</div>
+                    <div class="book-cover-title">객관식 / 서술형<br>문제</div>
+                    <div class="book-cover-sub">학생용 / 교사용 분리 출력</div>
+                    <div class="book-cover-badge">6 pages</div>
                 </div>
                 <div class="sample-book-title">객관식 / 서술형 문제</div>
-                <div class="sample-book-sub">6페이지</div>
+                <div class="sample-book-sub">클릭하여 보기</div>
             </div>
             <div class="sample-book fade-in" onclick="openBook('study', 6, '학습 자료')">
                 <div class="sample-book-cover">
-                    <img src="samples/study/page-1.png" alt="학습 자료 샘플" loading="lazy">
+                    <div class="book-cover-icon">&#128214;</div>
+                    <div class="book-cover-title">학습 자료</div>
+                    <div class="book-cover-sub">요약 / 해석 / 영작 연습</div>
+                    <div class="book-cover-badge">6 pages</div>
                 </div>
                 <div class="sample-book-title">학습 자료</div>
-                <div class="sample-book-sub">6페이지</div>
+                <div class="sample-book-sub">클릭하여 보기</div>
             </div>
             <div class="sample-book fade-in" onclick="openBook('vocab', 7, '어휘 자료')">
                 <div class="sample-book-cover">
-                    <img src="samples/vocab/page-1.png" alt="어휘 자료 샘플" loading="lazy">
+                    <div class="book-cover-icon">&#128218;</div>
+                    <div class="book-cover-title">어휘 자료</div>
+                    <div class="book-cover-sub">단어 학습 / 빈칸 연습</div>
+                    <div class="book-cover-badge">7 pages</div>
                 </div>
                 <div class="sample-book-title">어휘 자료</div>
-                <div class="sample-book-sub">7페이지</div>
+                <div class="sample-book-sub">클릭하여 보기</div>
             </div>
         </div>
     </div>
