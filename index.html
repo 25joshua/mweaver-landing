@@ -328,6 +328,72 @@
         }
         .video-modal iframe { width: 100%; aspect-ratio: 16/9; border-radius: 12px; border: none; }
 
+        /* === Sample Books === */
+        .sample-grid { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+        .sample-book {
+            width: 200px; cursor: pointer; transition: transform 0.3s; perspective: 1000px;
+        }
+        .sample-book:hover { transform: translateY(-8px); }
+        .sample-book-cover {
+            width: 200px; height: 270px; border-radius: 4px 8px 8px 4px;
+            position: relative; overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4), -4px 0 0 rgba(0,212,255,0.15);
+            border: 1px solid var(--border);
+        }
+        .sample-book-cover img { width: 100%; height: 100%; object-fit: cover; }
+        .sample-book-cover::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
+            background: linear-gradient(90deg, rgba(0,0,0,0.3), transparent);
+            z-index: 2;
+        }
+        .sample-book-title {
+            text-align: center; margin-top: 16px; font-size: 0.95rem; font-weight: 700;
+            color: var(--text);
+        }
+        .sample-book-sub {
+            text-align: center; margin-top: 4px; font-size: 0.8rem; color: var(--text-soft);
+        }
+
+        /* === Book Flip Modal === */
+        .book-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center;
+            flex-direction: column;
+        }
+        .book-modal.open { display: flex; }
+        .book-modal-inner {
+            position: relative; max-width: 90vw; max-height: 85vh;
+        }
+        .book-page {
+            display: none; max-width: 90vw; max-height: 80vh;
+            border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            border: 1px solid rgba(0,212,255,0.2);
+        }
+        .book-page.active { display: block; animation: pageFlip 0.4s ease; }
+        @keyframes pageFlip {
+            from { opacity: 0; transform: rotateY(-15deg); }
+            to { opacity: 1; transform: rotateY(0); }
+        }
+        .book-page img { width: 100%; max-height: 80vh; object-fit: contain; border-radius: 8px; }
+        .book-nav {
+            display: flex; gap: 24px; align-items: center; margin-top: 20px;
+        }
+        .book-nav button {
+            background: rgba(0,212,255,0.1); border: 1px solid var(--primary); color: var(--primary);
+            padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .book-nav button:hover { background: rgba(0,212,255,0.2); }
+        .book-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+        .book-counter { color: #94a3b8; font-size: 0.9rem; min-width: 60px; text-align: center; }
+        .book-modal-close {
+            position: absolute; top: -40px; right: 0; background: none; border: none;
+            color: #fff; font-size: 1.5rem; cursor: pointer;
+        }
+        .book-modal-title {
+            color: #fff; font-size: 1rem; font-weight: 600; margin-bottom: 16px; text-align: center;
+        }
+
         /* === Anim === */
         .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
@@ -448,6 +514,39 @@
                 <div class="step-num">3</div>
                 <h3>저장 및 출력</h3>
                 <p>HTML, PDF, DOCX(한워드/MS Word), HWPX(한컴오피스 한글), 엑셀로 저장. 학생용/교사용 분리 출력 지원.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sample Books -->
+<section id="samples" class="api-section">
+    <div class="container">
+        <div class="section-title fade-in">
+            <h2>생성 결과물 샘플</h2>
+            <p>MWeaver로 생성한 실제 결과물입니다. 책을 클릭하면 페이지를 넘겨보실 수 있습니다.</p>
+        </div>
+        <div class="sample-grid">
+            <div class="sample-book fade-in" onclick="openBook('obj-subj', 6, '객관식 / 서술형 문제')">
+                <div class="sample-book-cover">
+                    <img src="samples/obj-subj/page-1.png" alt="객관식/서술형 문제 샘플" loading="lazy">
+                </div>
+                <div class="sample-book-title">객관식 / 서술형 문제</div>
+                <div class="sample-book-sub">6페이지</div>
+            </div>
+            <div class="sample-book fade-in" onclick="openBook('study', 6, '학습 자료')">
+                <div class="sample-book-cover">
+                    <img src="samples/study/page-1.png" alt="학습 자료 샘플" loading="lazy">
+                </div>
+                <div class="sample-book-title">학습 자료</div>
+                <div class="sample-book-sub">6페이지</div>
+            </div>
+            <div class="sample-book fade-in" onclick="openBook('vocab', 7, '어휘 자료')">
+                <div class="sample-book-cover">
+                    <img src="samples/vocab/page-1.png" alt="어휘 자료 샘플" loading="lazy">
+                </div>
+                <div class="sample-book-title">어휘 자료</div>
+                <div class="sample-book-sub">7페이지</div>
             </div>
         </div>
     </div>
@@ -708,6 +807,22 @@
     </div>
 </footer>
 
+<!-- Book Flip Modal -->
+<div class="book-modal" id="bookModal" onclick="closeBook(event)">
+    <div class="book-modal-inner">
+        <button class="book-modal-close" onclick="closeBook(event)">&times;</button>
+        <div class="book-modal-title" id="bookModalTitle"></div>
+        <div class="book-page active" id="bookPage">
+            <img id="bookPageImg" src="" alt="">
+        </div>
+        <div class="book-nav">
+            <button id="bookPrev" onclick="bookPrevPage()">&larr; 이전</button>
+            <span class="book-counter" id="bookCounter">1 / 1</span>
+            <button id="bookNext" onclick="bookNextPage()">다음 &rarr;</button>
+        </div>
+    </div>
+</div>
+
 <script>
     // Nav scroll effect
     const nav = document.getElementById('nav');
@@ -749,6 +864,61 @@
             modal.classList.remove('open');
         }
     }
+
+    // Book flip modal
+    let bookCurrentPage = 1;
+    let bookTotalPages = 1;
+    let bookFolder = '';
+
+    function openBook(folder, total, title) {
+        bookFolder = folder;
+        bookTotalPages = total;
+        bookCurrentPage = 1;
+        document.getElementById('bookModalTitle').textContent = title;
+        updateBookPage();
+        document.getElementById('bookModal').classList.add('open');
+    }
+
+    function updateBookPage() {
+        const img = document.getElementById('bookPageImg');
+        const page = document.getElementById('bookPage');
+        img.src = 'samples/' + bookFolder + '/page-' + bookCurrentPage + '.png';
+        img.alt = 'Page ' + bookCurrentPage;
+        page.classList.remove('active');
+        void page.offsetWidth;
+        page.classList.add('active');
+        document.getElementById('bookCounter').textContent = bookCurrentPage + ' / ' + bookTotalPages;
+        document.getElementById('bookPrev').disabled = bookCurrentPage === 1;
+        document.getElementById('bookNext').disabled = bookCurrentPage === bookTotalPages;
+    }
+
+    function bookPrevPage() {
+        if (bookCurrentPage > 1) {
+            bookCurrentPage--;
+            updateBookPage();
+        }
+    }
+
+    function bookNextPage() {
+        if (bookCurrentPage < bookTotalPages) {
+            bookCurrentPage++;
+            updateBookPage();
+        }
+    }
+
+    function closeBook(e) {
+        if (e.target === e.currentTarget || e.target.classList.contains('book-modal-close')) {
+            document.getElementById('bookModal').classList.remove('open');
+        }
+    }
+
+    document.addEventListener('keydown', function(e) {
+        const modal = document.getElementById('bookModal');
+        if (!modal.classList.contains('open')) return;
+        if (e.key === 'ArrowLeft') bookPrevPage();
+        if (e.key === 'ArrowRight') bookNextPage();
+        if (e.key === 'Escape') modal.classList.remove('open');
+    });
 </script>
 </body>
 </html>
