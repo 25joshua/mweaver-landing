@@ -11,6 +11,7 @@
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ko_KR">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
     <style>
         :root {
             --primary: #00d4ff;
@@ -378,58 +379,14 @@
             position: relative; max-width: 90vw; max-height: 85vh;
             perspective: 2500px;
         }
-        .book-page-container {
-            position: relative; max-width: 90vw; max-height: 80vh;
-            transform-style: preserve-3d;
+        .book-flip-wrap {
+            display: flex; justify-content: center; align-items: center;
+            margin: 0 auto;
         }
-        .book-page {
-            position: absolute; top: 0; left: 0; width: 100%; max-width: 90vw; max-height: 80vh;
-            border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-            border: 1px solid rgba(0,212,255,0.2);
-            transform-origin: left center;
-            backface-visibility: hidden;
-        }
-        .book-page img { width: 100%; max-height: 80vh; object-fit: contain; border-radius: 8px; display: block; }
-        .book-page.current { position: relative; z-index: 1; }
-        .book-page.turning {
-            z-index: 10;
-            animation: pageCurl 1.2s cubic-bezier(0.4, 0.1, 0.3, 1) forwards;
-        }
-        @keyframes pageCurl {
-            0% {
-                transform: rotateY(0deg);
-                box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-            }
-            15% {
-                transform: rotateY(-5deg);
-                box-shadow: -5px 10px 30px rgba(0,0,0,0.5);
-            }
-            40% {
-                transform: rotateY(-45deg);
-                box-shadow: -15px 15px 40px rgba(0,0,0,0.4);
-            }
-            70% {
-                transform: rotateY(-100deg);
-                box-shadow: -25px 20px 50px rgba(0,0,0,0.3);
-            }
-            100% {
-                transform: rotateY(-180deg);
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            }
-        }
-        .book-page.turning::after {
-            content: '';
-            position: absolute; top: 0; right: 0; bottom: 0; width: 60px;
-            background: linear-gradient(270deg, rgba(0,212,255,0.12), transparent);
-            border-radius: 0 8px 8px 0;
-            pointer-events: none;
-            animation: curlShine 1.2s cubic-bezier(0.4, 0.1, 0.3, 1) forwards;
-        }
-        @keyframes curlShine {
-            0% { opacity: 0; width: 0; }
-            20% { opacity: 0.6; width: 60px; }
-            60% { opacity: 0.8; width: 100px; }
-            100% { opacity: 0; width: 0; }
+        #bookFlipContainer { margin: 0 auto; }
+        .stf__parent {
+            filter: drop-shadow(0 24px 48px rgba(0,0,0,0.55));
+            border-radius: 6px;
         }
         .book-nav {
             display: flex; gap: 24px; align-items: center; margin-top: 20px;
@@ -444,16 +401,15 @@
         .book-counter { color: #94a3b8; font-size: 0.9rem; min-width: 60px; text-align: center; }
         .book-modal-close {
             position: absolute; top: -40px; right: 0; background: none; border: none;
-            color: #fff; font-size: 1.5rem; cursor: pointer;
+            color: #fff; font-size: 1.5rem; cursor: pointer; z-index: 100;
+            padding: 4px 10px;
         }
         .book-modal-title {
             color: #fff; font-size: 1rem; font-weight: 600; margin-bottom: 16px; text-align: center;
         }
-        .book-auto-indicator {
-            color: #94a3b8; font-size: 0.8rem; margin-top: 10px; text-align: center;
-            cursor: pointer; user-select: none;
+        .book-hint {
+            color: #94a3b8; font-size: 0.8rem; margin-top: 12px; text-align: center;
         }
-        .book-auto-indicator.paused { color: var(--primary); }
 
         /* === Anim === */
         .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
@@ -877,24 +833,19 @@
 </footer>
 
 <!-- Book Flip Modal -->
-<div class="book-modal" id="bookModal" onclick="closeBook(event)">
+<div class="book-modal" id="bookModal">
     <div class="book-modal-inner">
         <button class="book-modal-close" onclick="closeBook(event)">&times;</button>
         <div class="book-modal-title" id="bookModalTitle"></div>
-        <div class="book-page-container" id="bookPageContainer">
-            <div class="book-page current" id="bookPageCurrent">
-                <img id="bookPageCurrentImg" src="" alt="">
-            </div>
-            <div class="book-page" id="bookPageNext">
-                <img id="bookPageNextImg" src="" alt="">
-            </div>
+        <div class="book-flip-wrap" id="bookFlipWrap">
+            <div id="bookFlipContainer"></div>
         </div>
         <div class="book-nav">
             <button id="bookPrev" onclick="bookPrevPage()">&larr; 이전</button>
-            <span class="book-counter" id="bookCounter">1 / 1</span>
+            <span class="book-counter" id="bookCounter"></span>
             <button id="bookNext" onclick="bookNextPage()">다음 &rarr;</button>
         </div>
-        <div class="book-auto-indicator" id="bookAutoIndicator" onclick="toggleAutoPlay()">자동 넘기기 (클릭 시 일시정지)</div>
+        <div class="book-hint">페이지를 클릭하거나 모서리를 드래그하면 넘어갑니다</div>
     </div>
 </div>
 
@@ -940,154 +891,129 @@
         }
     }
 
-    // Book flip modal
-    let bookCurrentPage = 1;
-    let bookTotalPages = 1;
+    // Book flip modal (StPageFlip - 실제 책처럼 좌우 2페이지 + 페이지 넘김)
+    let pageFlip = null;
     let bookFolder = '';
-    let bookAutoPlay = null;
-    let bookIsPaused = false;
-    let bookIsFlipping = false;
-    const BOOK_AUTO_INTERVAL = 3500;
-    const FLIP_DURATION = 1200;
+    let bookTotalPages = 1;
 
-    function getImgSrc(pageNum) {
-        return 'samples/' + bookFolder + '/page-' + pageNum + '.png';
+    // 책별 실제 페이지 이미지 크기 (비율 유지용)
+    const BOOK_PAGE_SIZE = {
+        'obj-subj': { w: 563, h: 796 },
+        'study':    { w: 496, h: 640 },
+        'vocab':    { w: 578, h: 747 }
+    };
+
+    function sizeBookContainer() {
+        // autoSize가 컨테이너를 width:100%로 만들므로, 실제 너비는 부모 wrap에 px로 지정
+        // 높이는 라이브러리가 페이지 비율로 자동 계산 (paddingBottom 방식)
+        var size = BOOK_PAGE_SIZE[bookFolder] || { w: 563, h: 796 };
+        var r = size.w / size.h;
+        var availW = Math.min(window.innerWidth * 0.94, 1240);
+        var availH = Math.min(window.innerHeight * 0.72, 860);
+        var wrap = document.getElementById('bookFlipWrap');
+        var w;
+        if (availW < 700) {
+            // 좁은 화면: 단일 페이지(세로) 모드
+            w = Math.min(availW, availH * r);
+        } else {
+            // 책 펼침: 좌우 2페이지 스프레드
+            w = Math.min(availW, availH * r * 2);
+        }
+        wrap.style.width = Math.floor(w) + 'px';
     }
 
     function openBook(folder, total, title) {
         bookFolder = folder;
         bookTotalPages = total;
-        bookCurrentPage = 1;
-        bookIsPaused = false;
-        bookIsFlipping = false;
         document.getElementById('bookModalTitle').textContent = title;
-        var currentImg = document.getElementById('bookPageCurrentImg');
-        var nextImg = document.getElementById('bookPageNextImg');
-        var currentEl = document.getElementById('bookPageCurrent');
-        var nextEl = document.getElementById('bookPageNext');
-        currentImg.src = getImgSrc(1);
-        nextImg.src = total > 1 ? getImgSrc(2) : '';
-        currentEl.classList.add('current');
-        currentEl.classList.remove('turning');
-        nextEl.classList.remove('turning', 'current');
-        nextEl.style.display = total > 1 ? 'block' : 'none';
-        updateBookCounter();
+        document.getElementById('bookCounter').textContent = '';
+        document.getElementById('bookPrev').disabled = true;
+        document.getElementById('bookNext').disabled = true;
         document.getElementById('bookModal').classList.add('open');
-        document.getElementById('bookAutoIndicator').textContent = '자동 넘기기 (클릭 시 일시정지)';
-        document.getElementById('bookAutoIndicator').classList.remove('paused');
-        startAutoPlay();
-    }
 
-    function startAutoPlay() {
-        stopAutoPlay();
-        bookAutoPlay = setInterval(function() {
-            if (!bookIsPaused && !bookIsFlipping) {
-                if (bookCurrentPage < bookTotalPages) {
-                    bookNextPage();
-                } else {
-                    stopAutoPlay();
-                }
+        requestAnimationFrame(function() {
+            var container = document.getElementById('bookFlipContainer');
+            if (pageFlip) { try { pageFlip.destroy(); } catch (e) {} pageFlip = null; }
+            container.innerHTML = '';
+            sizeBookContainer();
+
+            if (typeof St === 'undefined' || !St.PageFlip) {
+                container.innerHTML = '<p style="color:#94a3b8;padding:40px;">플립북 라이브러리를 불러오지 못했습니다. 네트워크 연결을 확인하세요.</p>';
+                return;
             }
-        }, BOOK_AUTO_INTERVAL);
-    }
 
-    function stopAutoPlay() {
-        if (bookAutoPlay) {
-            clearInterval(bookAutoPlay);
-            bookAutoPlay = null;
-        }
-    }
+            var size = BOOK_PAGE_SIZE[bookFolder] || { w: 563, h: 796 };
+            var images = [];
+            for (var i = 1; i <= total; i++) {
+                images.push('samples/' + bookFolder + '/page-' + i + '.png');
+            }
 
-    function toggleAutoPlay() {
-        bookIsPaused = !bookIsPaused;
-        var indicator = document.getElementById('bookAutoIndicator');
-        if (bookIsPaused) {
-            indicator.textContent = '일시정지됨 (클릭 시 재개)';
-            indicator.classList.add('paused');
-        } else {
-            indicator.textContent = '자동 넘기기 (클릭 시 일시정지)';
-            indicator.classList.remove('paused');
-        }
+            pageFlip = new St.PageFlip(container, {
+                width: size.w,
+                height: size.h,
+                size: 'stretch',
+                minWidth: 340,
+                maxWidth: size.w * 2,
+                minHeight: 320,
+                maxHeight: size.h * 2,
+                showCover: false,
+                usePortrait: true,
+                autoSize: true,
+                drawShadow: true,
+                maxShadowOpacity: 0.55,
+                flippingTime: 900,
+                useMouseEvents: true,
+                swipeDistance: 30,
+                showPageCorners: true,
+                mobileScrollSupport: false
+            });
+            pageFlip.loadFromImages(images);
+            pageFlip.on('init', updateBookCounter);
+            pageFlip.on('flip', updateBookCounter);
+        });
     }
 
     function updateBookCounter() {
-        document.getElementById('bookCounter').textContent = bookCurrentPage + ' / ' + bookTotalPages;
-        document.getElementById('bookPrev').disabled = bookCurrentPage === 1;
-        document.getElementById('bookNext').disabled = bookCurrentPage === bookTotalPages;
+        if (!pageFlip) return;
+        var idx = pageFlip.getCurrentPageIndex();
+        var left = idx + 1;
+        var right = idx + 2;
+        var text = (right <= bookTotalPages) ? (left + ' - ' + right + ' / ' + bookTotalPages) : (left + ' / ' + bookTotalPages);
+        document.getElementById('bookCounter').textContent = text;
+        // showCover:false 기준 마지막 스프레드의 왼쪽 페이지 index
+        var lastLeft = (bookTotalPages % 2 === 0) ? bookTotalPages - 2 : bookTotalPages - 1;
+        document.getElementById('bookPrev').disabled = idx <= 0;
+        document.getElementById('bookNext').disabled = idx >= lastLeft;
     }
 
-    function flipForward() {
-        if (bookIsFlipping) return;
-        if (bookCurrentPage >= bookTotalPages) return;
-        bookIsFlipping = true;
-        var nextNum = bookCurrentPage + 1;
-        var currentEl = document.getElementById('bookPageCurrent');
-        var nextEl = document.getElementById('bookPageNext');
-        var nextImg = document.getElementById('bookPageNextImg');
-        nextImg.src = getImgSrc(nextNum);
-        nextEl.style.display = 'block';
-        nextEl.classList.remove('turning');
-        void nextEl.offsetWidth;
-        nextEl.classList.add('turning');
-        setTimeout(function() {
-            bookCurrentPage = nextNum;
-            var currentImg = document.getElementById('bookPageCurrentImg');
-            currentImg.src = getImgSrc(bookCurrentPage);
-            nextEl.classList.remove('turning');
-            nextEl.style.display = 'none';
-            if (bookCurrentPage < bookTotalPages) {
-                nextImg.src = getImgSrc(bookCurrentPage + 1);
-                nextEl.style.display = 'block';
-            }
-            updateBookCounter();
-            bookIsFlipping = false;
-        }, FLIP_DURATION);
-    }
+    function bookPrevPage() { if (pageFlip) pageFlip.flipPrev(); }
+    function bookNextPage() { if (pageFlip) pageFlip.flipNext(); }
 
-    function flipBackward() {
-        if (bookIsFlipping) return;
-        if (bookCurrentPage <= 1) return;
-        bookIsFlipping = true;
-        var prevNum = bookCurrentPage - 1;
-        var currentEl = document.getElementById('bookPageCurrent');
-        var nextEl = document.getElementById('bookPageNext');
-        var currentImg = document.getElementById('bookPageCurrentImg');
-        var nextImg = document.getElementById('bookPageNextImg');
-        currentImg.src = getImgSrc(prevNum);
-        nextImg.src = getImgSrc(bookCurrentPage);
-        nextEl.style.display = 'block';
-        nextEl.classList.remove('turning');
-        nextEl.style.transform = 'rotateY(-180deg)';
-        void nextEl.offsetWidth;
-        nextEl.style.transform = '';
-        nextEl.classList.add('turning');
-        nextEl.style.animationDirection = 'reverse';
-        setTimeout(function() {
-            bookCurrentPage = prevNum;
-            nextEl.classList.remove('turning');
-            nextEl.style.animationDirection = '';
-            nextEl.style.display = bookCurrentPage < bookTotalPages ? 'block' : 'none';
-            if (bookCurrentPage < bookTotalPages) {
-                nextImg.src = getImgSrc(bookCurrentPage + 1);
-            }
-            updateBookCounter();
-            bookIsFlipping = false;
-        }, FLIP_DURATION);
+    function destroyBook() {
+        if (pageFlip) { try { pageFlip.destroy(); } catch (e) {} pageFlip = null; }
+        // pageFlip.destroy()가 컨테이너 요소 자체를 제거하므로 다시 생성
+        document.getElementById('bookFlipWrap').innerHTML = '<div id="bookFlipContainer"></div>';
+        document.getElementById('bookModal').classList.remove('open');
     }
-
-    function bookPrevPage() { flipBackward(); }
-    function bookNextPage() { flipForward(); }
 
     function closeBook(e) {
-        if (e.target === e.currentTarget || e.target.classList.contains('book-modal-close')) {
-            stopAutoPlay();
-            document.getElementById('bookModal').classList.remove('open');
+        if (e.target.classList && e.target.classList.contains('book-modal-close')) {
+            destroyBook();
         }
     }
 
-    document.getElementById('bookPageContainer').addEventListener('click', function(e) {
-        e.stopPropagation();
-        toggleAutoPlay();
+    // 배경 클릭 닫기: mousedown과 mouseup이 모두 배경에서 발생한 경우만 닫기
+    // (페이지 드래그 후 배경에서 마우스를 놓아도 닫히지 않도록)
+    var bookModalEl = document.getElementById('bookModal');
+    var bookDownOnBackdrop = false;
+    bookModalEl.addEventListener('mousedown', function(e) {
+        bookDownOnBackdrop = (e.target === bookModalEl);
+    });
+    bookModalEl.addEventListener('click', function(e) {
+        if (e.target === bookModalEl && bookDownOnBackdrop) {
+            destroyBook();
+        }
+        bookDownOnBackdrop = false;
     });
 
     document.addEventListener('keydown', function(e) {
@@ -1095,7 +1021,13 @@
         if (!modal.classList.contains('open')) return;
         if (e.key === 'ArrowLeft') bookPrevPage();
         if (e.key === 'ArrowRight') bookNextPage();
-        if (e.key === 'Escape') { stopAutoPlay(); modal.classList.remove('open'); }
+        if (e.key === 'Escape') destroyBook();
+    });
+
+    window.addEventListener('resize', function() {
+        if (pageFlip && document.getElementById('bookModal').classList.contains('open')) {
+            sizeBookContainer();
+        }
     });
 </script>
 </body>
