@@ -414,9 +414,31 @@
         /* === Anim === */
         .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* === Notice Banner === */
+        #noticeBanner {
+            display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+            background: linear-gradient(90deg, #f59e0b, #ef4444, #8b5cf6, #f59e0b);
+            background-size: 300% 100%; animation: noticeShine 8s linear infinite;
+            color: #fff; padding: 10px 48px 10px 16px; text-align: center;
+            font-size: 0.95rem; font-weight: 600; box-shadow: 0 2px 14px rgba(0,0,0,0.3);
+        }
+        @keyframes noticeShine { 0% { background-position: 0% 0; } 100% { background-position: 300% 0; } }
+        #noticeBanner .notice-badge {
+            display: inline-block; background: rgba(255,255,255,0.28); border-radius: 999px;
+            padding: 1px 10px; margin-right: 8px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em;
+        }
+        #noticeClose {
+            position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; color: #fff; font-size: 1.25rem; cursor: pointer; opacity: 0.8; line-height: 1;
+        }
+        #noticeClose:hover { opacity: 1; }
     </style>
 </head>
 <body>
+
+<!-- Notice Banner -->
+<div id="noticeBanner"><span class="notice-badge">공지</span><span id="noticeText"></span><button id="noticeClose" onclick="closeNotice()" aria-label="닫기">&times;</button></div>
 
 <!-- Nav -->
 <nav id="nav">
@@ -864,6 +886,25 @@
 </div>
 
 <script>
+    // Notice banner (notice.html 내용을 읽어 표시, 비어 있으면 숨김)
+    fetch('notice.html?v=' + Date.now())
+        .then(r => r.ok ? r.text() : '')
+        .then(t => {
+            t = t.trim();
+            if (!t) return;
+            document.getElementById('noticeText').innerHTML = t;
+            const b = document.getElementById('noticeBanner');
+            b.style.display = 'block';
+            document.getElementById('nav').style.top = b.offsetHeight + 'px';
+            document.body.style.paddingTop = b.offsetHeight + 'px';
+        })
+        .catch(() => {});
+    function closeNotice() {
+        document.getElementById('noticeBanner').style.display = 'none';
+        document.getElementById('nav').style.top = '0';
+        document.body.style.paddingTop = '0';
+    }
+
     // Nav scroll effect
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
