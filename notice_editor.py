@@ -8,6 +8,7 @@ import re
 import subprocess
 import threading
 import tkinter as tk
+import webbrowser
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 NOTICE = os.path.join(DIR, "notice.html")
@@ -71,8 +72,14 @@ txt = tk.Text(root, height=4, wrap="word", font=("Malgun Gothic", 10))
 txt.pack(fill="both", expand=True, padx=10)
 txt.insert("1.0", load_notice())
 
-btn = tk.Button(root, text="저장 및 배포", command=save)
-btn.pack(pady=8)
+btn_frame = tk.Frame(root)
+btn_frame.pack(pady=8)
+btn = tk.Button(btn_frame, text="저장 및 배포", command=save)
+btn.pack(side="left", padx=4)
+tk.Button(
+    btn_frame, text="랜딩 페이지 열기",
+    command=lambda: webbrowser.open("https://25joshua.github.io/mweaver-landing/"),
+).pack(side="left", padx=4)
 status = tk.Label(root, text="", fg="gray")
 status.pack(pady=(0, 8))
 
