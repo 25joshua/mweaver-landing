@@ -1,0 +1,497 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MWeaver 기능 및 가격 안내</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            padding: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #5F9EA0 0%, #4682B4 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .price-banner {
+            text-align: center;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            border: 3px solid #28a745;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .price-banner h2 {
+            color: #28a745;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .price-banner .price-amount {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #28a745;
+            margin: 15px 0;
+        }
+
+        .price-banner .price-desc {
+            color: #555;
+            font-size: 1.05em;
+        }
+
+        .price-banner .price-note {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .feature-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #5F9EA0 0%, #4682B4 100%);
+            color: white;
+            padding: 18px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-bottom: 25px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            transition: box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .feature-card.highlight {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            border: 2px solid #28a745;
+        }
+
+        .feature-card h4 {
+            color: #5F9EA0;
+            font-size: 1.15em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-card h4 .badge {
+            background: #28a745;
+            color: white;
+            font-size: 0.7em;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: normal;
+        }
+
+        .feature-card p {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+
+        .feature-card ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .feature-card ul li {
+            color: #555;
+            font-size: 0.92em;
+            margin-bottom: 6px;
+            line-height: 1.6;
+        }
+        
+        .price-section {
+            margin-bottom: 40px;
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .price-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .price-card.best {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+        }
+
+        .price-card h4 {
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .price-card .amount {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #28a745;
+            margin: 10px 0;
+        }
+
+        .price-card .desc {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .advantage-box {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            border: 3px solid #28a745;
+            border-radius: 15px;
+            padding: 35px;
+            margin-top: 40px;
+        }
+
+        .advantage-box h2 {
+            color: #28a745;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .advantage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .advantage-item {
+            background: white;
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .advantage-item h4 {
+            color: #5F9EA0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .advantage-item p {
+            color: #666;
+            font-size: 0.93em;
+            line-height: 1.7;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-top: 40px;
+            color: #666;
+        }
+
+        .note {
+            background: #f0f8ff;
+            border-left: 4px solid #4682B4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .note p {
+            color: #2c3e50;
+            font-size: 0.9em;
+            line-height: 1.8;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>MWeaver 기능 및 가격 안내</h1>
+            <p>AI 기반 영어 문제 자동 생성 + 학습 자료 + 어휘 자료 + 문제 은행 통합 솔루션</p>
+        </div>
+
+        <div class="price-banner">
+            <h2>일회 구매 영구 사용</h2>
+            <div class="price-amount">45만원 (1PC 기준)</div>
+            <div class="price-desc">해당 버전 평생 사용 + 1년간 업데이트 무상 포함</div>
+            <div class="price-note">1년 후 업데이트 연장은 선택 사항 (연 15만원) / 연장 안 해도 기존 버전 영구 사용</div>
+        </div>
+        
+        <!-- 1. AI 문제 생성 -->
+        <div class="feature-section">
+            <div class="section-title">1. AI 문제 생성 기능</div>
+            <div class="feature-grid">
+                <div class="feature-card highlight">
+                    <h4>총 19유형 문제 자동 생성 <span class="badge">통합</span></h4>
+                    <ul>
+                        <li><strong>객관식 9유형:</strong> 제목/요지/내용일치/요약/빈칸/어휘/밑줄의미/문단순서/문장위치</li>
+                        <li><strong>영작·어순 1유형 + 서답형 2유형:</strong> 영작·어순배열, 본문요약, 어법</li>
+                        <li><strong>서술형 5유형:</strong> 근거 단답형, 지칭 대상형, 문장 변환형, 어휘 문맥형, 빈칸 완성형</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>서술형 구조화 출제 <span class="badge">차별화</span></h4>
+                    <p>학생용 문제와 교사용 답지가 분리되어 출력됩니다. 교사용 답지에는 정답, 허용 답안, 지문 근거, 채점 기준, 부분 점수, 출제 의도가 자동 포함됩니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>2개 내장 + 4개 사용자 정의 API</h4>
+                    <p>내장: Gemini, Mistral. 사용자 정의: OpenAI, Cohere, Groq, OpenRouter, Together AI, DeepSeek, Fireworks AI 등 OpenAI 호환 API 4개 슬롯 자유 설정.</p>
+                </div>
+                <div class="feature-card highlight">
+                    <h4>API 비용 없는 문제 유형 <span class="badge">무료</span></h4>
+                    <p>6-10번 문제(어법, 브래킷, 배열, 삽입, 문법)는 내장 로직으로 AI API 호출 없이 완전 무료 생성.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>무료 API 티어 활용</h4>
+                    <ul>
+                        <li>Gemini Flash-Lite: 일 1,000회 무료 (카드 불필요)</li>
+                        <li>Mistral: 월 ~10억 토큰 무료 (전화 인증만)</li>
+                        <li>사용자 정의: Groq(무료 티어), OpenRouter(무료 모델 다수), Cohere(월 1,000회 무료) 등</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>일괄 생성 및 반복 실행</h4>
+                    <p>1-10번 프롬프트 일괄 실행 또는 지정 횟수 반복 실행. 커피 time으로 여러 지문 일괄 출제 가능.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 학습 자료 및 어휘 -->
+        <div class="feature-section">
+            <div class="section-title">2. 학습 자료 및 어휘 기능</div>
+            <div class="feature-grid">
+                <div class="feature-card highlight">
+                    <h4>영어+한글+문법 분석 통합 출력 <span class="badge">차별화</span></h4>
+                    <p>50개 이상 문법 규칙 + AI 분석으로 각 문장의 문법 포인트 자동 추출. 영어 원문, 한글 해석, 문법 분석 통합 출력. AI 한 문장 요약과 주제어 3개도 자동 생성.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>5가지 학습 자료 출력 형식</h4>
+                    <ul>
+                        <li>영어+한글+분석 (AI 요약+주제 포함)</li>
+                        <li>해석 TEST지 (빈칸 해석)</li>
+                        <li>단어 배열 TEST지 (A/B/C 3버전)</li>
+                        <li>빈칸 연습지 (A/B/C 3버전)</li>
+                        <li>영작 연습지 (한글→영어)</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>어휘 학습 자료 생성</h4>
+                    <p>수준(상/중/하)별 핵심 어휘 자동 추출, AI로 뜻·유의어·반의어 생성. 단어장과 단어 테스트지(영한/한영/빈칸/선택형/문맥 빈칸) 자동 생성.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>커피 time (지문 관리 및 일괄 출제)</h4>
+                    <p>영어 지문과 한글 해석을 번호별로 관리. 여러 지문 선택해 1, 2, 5, 8번 프롬프트 일괄/반복 실행. 학습자료 5가지 유형을 HTML/PDF/DOCX/HWPX로 일괄 생성.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 문제 은행 및 출력 -->
+        <div class="feature-section">
+            <div class="section-title">3. 문제 은행 및 출력 시스템</div>
+            <div class="feature-grid">
+                <div class="feature-card highlight">
+                    <h4>엑셀 문제 은행 <span class="badge">누적 자산</span></h4>
+                    <p>생성된 모든 문제가 5단계로 자동 분류되어 엑셀에 저장. Excel 없이도 MWeaver 자체 관리 가능. 누적될수록 수만 개의 문제 DB가 되어 핵심 자산이 됩니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>DOCX 출력 (한워드/MS Word 호환)</h4>
+                    <p>문제지, 정답지, 학습자료, 어휘자료 모두 DOCX 출력. 한워드와 MS Word에서 직접 편집/인쇄 가능.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>HWPX 출력 (한글 문서 호환)</h4>
+                    <p>한컴오피스 한글에서 직접 편집 가능한 HWPX 형식 출력.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>HTML / PDF 출력</h4>
+                    <p>인쇄 최적화 HTML 출력, 브라우저에서 바로 인쇄 또는 PDF 저장 가능. HTML 파일은 브라우저에서 편집도 가능.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>학생용/교사용 분리 출력</h4>
+                    <p>모든 출력 형식에서 학생용 문제지와 교사용 정답지를 별도 자동 생성.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>복합 조건 검색</h4>
+                    <p>출처, 학년, 과목, 유형 등 다중 조건으로 문제 검색, 실시간 미리보기 제공.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 가격 정책 -->
+        <div class="price-section">
+            <div class="section-title">4. 가격 정책</div>
+            <div class="price-grid">
+                <div class="price-card best">
+                    <h4>초기 구매</h4>
+                    <div class="amount">45만원</div>
+                    <div class="desc">1PC 영구 라이선스<br>해당 버전 평생 사용<br>1년간 업데이트 무상 포함</div>
+                </div>
+                <div class="price-card">
+                    <h4>연간 소프트웨어 비용</h4>
+                    <div class="amount">0원 ~</div>
+                    <div class="desc">연장 안 하면 0원<br>연장 시 연 15만원 (선택)<br>연장 안 해도 기존 버전 영구 사용</div>
+                </div>
+                <div class="price-card">
+                    <h4>3년 총 비용</h4>
+                    <div class="amount">45만원</div>
+                    <div class="desc">연장 안 할 시: 45만원<br>연장할 시: 최대 75만원</div>
+                </div>
+                <div class="price-card">
+                    <h4>5년 총 비용</h4>
+                    <div class="amount">45만원</div>
+                    <div class="desc">연장 안 할 시: 45만원<br>연장할 시: 최대 105만원</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. 라이선스 및 운영 -->
+        <div class="feature-section">
+            <div class="section-title">5. 라이선스 및 운영</div>
+            <div class="feature-grid">
+                <div class="feature-card highlight">
+                    <h4>일회 구매 영구 사용 <span class="badge">핵심</span></h4>
+                    <p>한 번 구매하면 해당 버전 영구 사용. 연 구독형과 달리 사용 중단 시 기능 상실이 없습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>1년 업데이트 무상 포함</h4>
+                    <p>구매일로부터 1년간 모든 업데이트 무상 제공. 1년 후 연 15만원 연장 가능(선택). 연장 안 해도 기존 버전 계속 사용.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>오프라인 사용 지원</h4>
+                    <p>1년(365일) 오프라인 유예. 내장 로직 문제(6~10번), 문제 은행, 저장 자료 조회/출력 가능. 1년 경과 후 서버 무관 영구 작동. (AI API 연동 기능은 오프라인 시 사용 불가)</p>
+                </div>
+                <div class="feature-card">
+                    <h4>데이터 보안</h4>
+                    <p>민감 파일은 SAFE_DIR에 암호화 저장, API 키는 Fernet 대칭 암호화로 보호. 클라우드 의존 없이 로컬에서 안전하게 관리.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 핵심 강점 -->
+        <div class="advantage-box">
+            <h2>MWeaver 핵심 강점</h2>
+            <div class="advantage-grid">
+                <div class="advantage-item">
+                    <h4>비용 효율성</h4>
+                    <p>일회 구매 45만원으로 해당 버전 평생 사용. 업데이트 연장 안 하면 연간 0원. 사용 기간이 길수록 경제적 이점 증대.</p>
+                </div>
+                <div class="advantage-item">
+                    <h4>전 기능 통합</h4>
+                    <p>AI 문제 생성(19유형) + 서술형(5유형) + 학습 자료 + 어휘 자료 + 문제 은행을 하나의 프로그램에 통합. 여러 소프트웨어를 따로 구독할 필요 없음.</p>
+                </div>
+                <div class="advantage-item">
+                    <h4>서술형 구조화 출제</h4>
+                    <p>서술형 5유형 AI 자동 출제, 학생용/교사용 분리 출력, 허용 답안 검증, 채점 기준 및 부분 점수 포함.</p>
+                </div>
+                <div class="advantage-item">
+                    <h4>영어+한글+문법 분석 통합 출력</h4>
+                    <p>50개 이상 문법 규칙 + AI 분석으로 각 문장 문법 포인트 자동 추출. 5가지 출력 형식을 한 번에 통합 생성.</p>
+                </div>
+                <div class="advantage-item">
+                    <h4>2개 내장 + 4개 사용자 정의 API</h4>
+                    <p>내장(Gemini, Mistral) 외에도 OpenAI 호환 API 4개 슬롯 자유 설정. 새로운 AI 서비스 출시 시 즉시 연동 가능.</p>
+                </div>
+                <div class="advantage-item">
+                    <h4>API 비용 절감</h4>
+                    <p>6-10번은 내장 로직으로 완전 무료. 1-5번도 Gemini Flash-Lite(일 1,000회 무료) 또는 Mistral(월 ~10억 토큰 무료)로 비용 없이 대량 생성 가능.</p>
+                </div>
+                <div class="advantage-item">
+                    <h4>문제 은행의 누적 자산 가치</h4>
+                    <p>생성된 모든 문제가 자동 분류 저장되어 수천~수만 개의 문제 DB 구축. 45만원을 넘어서는 핵심 자산 가치.</p>
+                </div>
+                <div class="advantage-item">
+                    <h4>영구 라이선스 + 오프라인 유예</h4>
+                    <p>일회 구매 영구 사용, 1년 오프라인 유예. 1년 경과 후 서버 무관 영구 작동. 연 구독형과 달리 중단 시 기능 상실 없음.</p>
+                </div>
+                <div class="advantage-item">
+                    <h4>장기 투자 가치</h4>
+                    <p>사용 기간이 길수록 경제적 이점 증대. 문제 은행 누적 문제 수가 늘어날수록 전체 시스템 가치가 기하급수적으로 증가.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="note" style="margin-top: 40px;">
+            <p><strong>참고사항</strong></p>
+            <p>- MWeaver 가격은 2026년 8월 기준 1PC 영구 라이선스 45만원입니다.</p>
+            <p>- API 사용 비용은 AI 기반 문제 생성(1-5번, 서술형, 문법 분석, 어휘 자료) 시 별도 발생하며, 무료 티어 활용 시 비용 없이 사용 가능합니다.</p>
+            <p>- 문제 유형 6-10번은 API 비용 없이 완전 무료입니다.</p>
+            <p>- 사용자 정의 API 슬롯(4개)으로 OpenAI 호환 API라면 모든 서비스 연동 가능. OpenAI, Cohere, Groq, OpenRouter, Together AI, DeepSeek, Fireworks AI 등 자유 구성.</p>
+            <p>- 무료 API 티어 정보는 2026년 8월 기준 추정치이며, API 제공사 정책은 수시로 변경될 수 있습니다. 정확한 정보는 각 API 제공사 공식 홈페이지에서 확인 바랍니다.</p>
+            <p>- AI 문법 분석 결과는 배포 전 점검이 권장됩니다.</p>
+        </div>
+        
+        <div class="footer">
+            <p><strong>MWeaver v1.2.1 (2개 내장 API + 4개 사용자 정의 API 슬롯)</strong></p>
+            <p>AI 문제 생성 + 서술형 출제 + 학습 자료 + 어휘 자료 + 문제 은행 통합 솔루션</p>
+            <p style="margin-top: 20px; color: #999;">Copyright 2026 MWeaver. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
