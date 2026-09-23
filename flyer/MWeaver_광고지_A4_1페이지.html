@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MWeaver 광고지 (A4 1페이지)</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+        --navy: #0f172a;
+        --navy2: #1e293b;
+        --cyan: #00b8d9;
+        --cyan-dark: #0097b2;
+        --ink: #1a2332;
+        --soft: #5b6b7f;
+        --line: #dde4ec;
+        --bg-soft: #f4f7fa;
+    }
+    body {
+        font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+        background: #e8ecf1;
+        color: var(--ink);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .page {
+        width: 210mm; height: 297mm;
+        margin: 0 auto;
+        background: #fff;
+        display: flex; flex-direction: column;
+        overflow: hidden;
+        position: relative;
+    }
+    @page { size: A4; margin: 0; }
+    @media print {
+        body { background: #fff; }
+        .page { margin: 0; box-shadow: none; }
+    }
+    @media screen {
+        .page { box-shadow: 0 4px 30px rgba(0,0,0,0.25); margin-top: 20px; margin-bottom: 20px; }
+    }
+
+    /* ===== Header ===== */
+    .header {
+        background: linear-gradient(135deg, #0a0f1a 0%, #0f172a 55%, #14324a 100%);
+        color: #fff;
+        padding: 13mm 14mm 11mm;
+        position: relative;
+        overflow: hidden;
+    }
+    .header::after {
+        content: ""; position: absolute; right: -30mm; top: -30mm;
+        width: 110mm; height: 110mm; border-radius: 50%;
+        background: radial-gradient(circle, rgba(0,184,217,0.22) 0%, transparent 65%);
+    }
+    .brand-row { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+    .brand { font-size: 15pt; font-weight: 800; letter-spacing: 0.5px; }
+    .brand span { color: var(--cyan); }
+    .badge {
+        border: 1px solid rgba(0,184,217,0.55); color: #7fe3f7;
+        font-size: 8pt; font-weight: 700; padding: 2.5mm 4mm; border-radius: 20px;
+        letter-spacing: 0.3px;
+    }
+    .header h1 {
+        font-size: 27pt; font-weight: 800; line-height: 1.28;
+        margin-top: 8mm; letter-spacing: -0.5px; position: relative; z-index: 1;
+    }
+    .header h1 em { font-style: normal; color: var(--cyan); }
+    .header .sub {
+        margin-top: 4.5mm; font-size: 10pt; color: #b9c6d8; line-height: 1.65;
+        position: relative; z-index: 1; max-width: 160mm;
+    }
+    .header .sub b { color: #fff; }
+
+    /* ===== Stats ===== */
+    .stats {
+        display: flex; border-bottom: 1px solid var(--line);
+        background: var(--bg-soft);
+    }
+    .stat { flex: 1; text-align: center; padding: 4.5mm 2mm; border-right: 1px solid var(--line); }
+    .stat:last-child { border-right: none; }
+    .stat .num { font-size: 16pt; font-weight: 800; color: var(--cyan-dark); }
+    .stat .lbl { font-size: 8pt; color: var(--soft); margin-top: 1mm; font-weight: 600; }
+
+    /* ===== Body ===== */
+    .body { padding: 8mm 14mm 0; flex: 1; display: flex; flex-direction: column; }
+
+    .sec-title {
+        font-size: 12.5pt; font-weight: 800; margin-bottom: 4mm;
+        display: flex; align-items: center; gap: 3mm;
+    }
+    .sec-title::before {
+        content: ""; width: 4mm; height: 4mm; background: var(--cyan);
+        border-radius: 1mm; flex-shrink: 0;
+    }
+
+    .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+    .feat {
+        border: 1px solid var(--line); border-radius: 2.5mm;
+        padding: 3.5mm 4mm; background: #fff;
+        display: flex; gap: 3.5mm; align-items: flex-start;
+    }
+    .feat .ico {
+        width: 9mm; height: 9mm; border-radius: 2mm; flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 12pt; background: rgba(0,184,217,0.1);
+    }
+    .feat h3 { font-size: 9.5pt; font-weight: 800; margin-bottom: 1mm; }
+    .feat p { font-size: 8pt; color: var(--soft); line-height: 1.5; }
+
+    /* ===== Price band ===== */
+    .price-band {
+        margin-top: 6mm;
+        background: linear-gradient(135deg, #0f172a 0%, #14324a 100%);
+        border-radius: 3mm; color: #fff;
+        padding: 6mm 7mm;
+        display: flex; align-items: center; gap: 8mm;
+        position: relative; overflow: hidden;
+    }
+    .price-band::after {
+        content: ""; position: absolute; right: -20mm; bottom: -40mm;
+        width: 80mm; height: 80mm; border-radius: 50%;
+        background: radial-gradient(circle, rgba(0,184,217,0.18) 0%, transparent 65%);
+    }
+    .price-left { flex-shrink: 0; position: relative; z-index: 1; }
+    .price-left .tag {
+        display: inline-block; background: var(--cyan); color: #06222b;
+        font-size: 8pt; font-weight: 800; padding: 1.2mm 3mm; border-radius: 10px;
+        margin-bottom: 2mm; letter-spacing: 0.3px;
+    }
+    .price-left .amount { font-size: 24pt; font-weight: 800; letter-spacing: -0.5px; }
+    .price-left .amount small { font-size: 9.5pt; font-weight: 500; color: #9fb2c8; }
+    .price-left .once { font-size: 8.5pt; color: #7fe3f7; font-weight: 700; margin-top: 1mm; }
+    .price-right { position: relative; z-index: 1; border-left: 1px solid rgba(255,255,255,0.18); padding-left: 8mm; }
+    .price-right li {
+        list-style: none; font-size: 8.5pt; color: #cdd8e5; line-height: 1.75;
+        padding-left: 4.5mm; position: relative;
+    }
+    .price-right li::before {
+        content: "✓"; position: absolute; left: 0; color: var(--cyan); font-weight: 800;
+    }
+    .price-right li b { color: #fff; }
+
+    /* ===== CTA ===== */
+    .cta {
+        margin-top: 6mm;
+        border: 1.5px solid var(--cyan); border-radius: 3mm;
+        padding: 5mm 6mm;
+        display: flex; align-items: center; gap: 6mm;
+        background: linear-gradient(180deg, #f2fbfd 0%, #ffffff 100%);
+    }
+    .cta-text { flex: 1; }
+    .cta-text h3 { font-size: 12pt; font-weight: 800; margin-bottom: 1.5mm; }
+    .cta-text h3 em { font-style: normal; color: var(--cyan-dark); }
+    .cta-text p { font-size: 8.5pt; color: var(--soft); line-height: 1.6; }
+    .cta-text .links { margin-top: 2.5mm; font-size: 8pt; }
+    .cta-text .links a { color: var(--cyan-dark); font-weight: 700; text-decoration: none; }
+    .qr-box { text-align: center; flex-shrink: 0; }
+    .qr-box img {
+        width: 17mm; height: 17mm; display: block;
+        border: 1px solid var(--line); border-radius: 2mm; padding: 1mm; background: #fff;
+    }
+    .qr-box .qr-lbl { font-size: 7.5pt; font-weight: 700; color: var(--ink); margin-top: 1.5mm; }
+    .qr-box .qr-sub { font-size: 6.5pt; color: var(--soft); }
+
+    /* ===== Footer ===== */
+    .footer {
+        margin-top: auto;
+        padding: 4mm 14mm 5mm;
+        border-top: 1px solid var(--line);
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 7.5pt; color: var(--soft);
+    }
+    .footer b { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="brand-row">
+            <div class="brand">M<span>W</span>eaver <span style="font-weight:400; font-size:9pt; color:#8fa3bb;">HTMLBank</span></div>
+            <div class="badge">Windows 설치형 · 영구 라이선스</div>
+        </div>
+        <h1>AI로 영어 문제를<br><em>1분 만에 자동 출제</em></h1>
+        <p class="sub">지문 하나로 <b>객관식 9유형 · 서술형 7유형</b> 문제, <b>워크시트 · 어휘 자료</b> 제작부터 <b>문제은행 관리</b>까지.<br>월정액 없이 한 번 구매로 영구 소장하는 고등 영어 교사용 출제 프로그램.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat"><div class="num">19</div><div class="lbl">문제 유형</div></div>
+        <div class="stat"><div class="num">6+</div><div class="lbl">AI API 연동</div></div>
+        <div class="stat"><div class="num">5</div><div class="lbl">출력 포맷</div></div>
+        <div class="stat"><div class="num">0원</div><div class="lbl">월 구독료</div></div>
+        <div class="stat"><div class="num">300회</div><div class="lbl">무료 체험</div></div>
+    </div>
+
+    <!-- Body -->
+    <div class="body">
+
+        <div class="sec-title">문제 생성부터 자료 제작 · 문제은행까지 올인원</div>
+        <div class="feat-grid">
+            <div class="feat">
+                <div class="ico">📝</div>
+                <div><h3>객관식 9유형 자동 생성</h3><p>제목·요지·내용일치·요약, 빈칸 추론, 어휘, 어법, 순서 배열, 문장 삽입 등 내신 전 유형 대응</p></div>
+            </div>
+            <div class="feat">
+                <div class="ico">✏️</div>
+                <div><h3>서술형 7유형 자동 생성</h3><p>지문 근거 단답형, 문장 변환형, 어휘 응용형 등. 채점기준·부분점수·허용답안 포함 교사용 답지</p></div>
+            </div>
+            <div class="feat">
+                <div class="ico">📖</div>
+                <div><h3>워크시트 · 학습 자료</h3><p>한줄해석+AI 문법 분석, 해석 TEST지, 빈칸 연습지, 영작 연습지 자동 제작</p></div>
+            </div>
+            <div class="feat">
+                <div class="ico">📚</div>
+                <div><h3>어휘 자료</h3><p>지문에서 어휘 자동 추출, AI 맥락 반영 의미·유의어·반의어, 단어장·단어 테스트지 제작</p></div>
+            </div>
+            <div class="feat">
+                <div class="ico">📊</div>
+                <div><h3>엑셀 문제은행 + 자동보내기</h3><p>문제 축적·필터링·중복 방지, 문항별 시험지 파일 일괄 자동 생성</p></div>
+            </div>
+            <div class="feat">
+                <div class="ico">🖨️</div>
+                <div><h3>5가지 출력 · 학생/교사용 분리</h3><p>DOCX·HWPX·PDF·HTML·Excel. 한워드·MS Word에서 바로 편집 가능</p></div>
+            </div>
+        </div>
+
+        <!-- Price -->
+        <div class="price-band">
+            <div class="price-left">
+                <div class="tag">영구 라이선스</div>
+                <div class="amount">450,000<small>원 (VAT 별도)</small></div>
+                <div class="once">한 번 구매로 평생 사용 · 월정액 0원</div>
+            </div>
+            <ul class="price-right">
+                <li><b>구독료 없음</b> — 1회 구매로 현재 버전 영구 사용</li>
+                <li><b>1년 무료 업데이트</b> + 선택 연장(15만원/년), 미갱신 시에도 영구 작동</li>
+                <li><b>API 비용만 부담</b> — 무료 티어 활용 시 사실상 0원 운영 가능</li>
+                <li><b>구매 1년 후 라이선스 서버 없이 영구 작동</b> (AI 생성 시 인터넷 필요)</li>
+            </ul>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta">
+            <div class="cta-text">
+                <h3>지금 <em>300회 무료 체험</em>으로 직접 확인하세요</h3>
+                <p>정품 인증 없이 모든 기능을 300회 무료로 사용할 수 있습니다. 구매 전에 우리 학교 지문으로 충분히 테스트해 보세요.</p>
+                <p class="links">
+                    🔗 <a href="https://25joshua.github.io/mweaver-landing/">25joshua.github.io/mweaver-landing</a>
+                    &nbsp;|&nbsp;
+                    � <a href="https://smartstore.naver.com/mweaver/products/13768405110">스마트스토어 구매</a>
+                    &nbsp;|&nbsp;
+                    �💬 <a href="https://open.kakao.com/o/sdsgOiNh">카카오톡 문의</a>
+                </p>
+            </div>
+            <div class="qr-box">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAB40lEQVRoge2avXGEQAyF5SEgpARKcWlQGqVQwoUENyfrd8Fnp+I2eEoO737r5I0ekhbiDKLxRR7y8C0r65x7DwJWi222M7DsvGjhJ9F8fMnOINjhxxZg5dgkauyDimWyqHwiVmD2B7DuMNNUdnmnU1NgN2Mku+vEoZr5G7DbsOZvYmurPFjY6v82COxzWIZj05N4H9Pfcg9YMfYWk5YE9pZ53wFWiLkae2TKamYnRrcJv+yjSPjQRALWBWbqafHMW+tltCTg6GU2Mn8DVozFgjWSxvMRh1WsDGClGE3RSGaTEuFvmZYywDrAmr+dvQxbQg3+T3SVgJVjzd/ee5ngozwGVohdRo/RktAcYrnRuVjA+sDC0lgbfa2i/UGl3O3nLMyAVWG2uHh5rJippoXZ00+fNgisHKPIHRquozDNnekV0xVgn8dybmkvIw/R1EuC0THVFFgxJr/zr/J49BRzLPwNWC1GlP7GdoFisbX58MTtChjYh7Ezvpltehziei8Th4HVYpwRL/9LbdCuvRoOrArbTKl2+RijMPe39LUHsE6w63297tonLn9tENhNWCuPPcW0JLBVYDdiR5bHqREfbn8rAesES3/z6XFOY8i+OCKiSxUNrAzL8BzKLyT9cDsDrAfsBxShqYWAFkHEAAAAAElFTkSuQmCC" alt="랜딩 페이지 QR">
+                <div class="qr-lbl">제품 소개 · 다운로드</div>
+                <div class="qr-sub">랜딩 페이지</div>
+            </div>
+            <div class="qr-box">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACK0lEQVRoge2aMZLCMAxFlaFImSNwlByNHI2j5AgpKRi01pdkYFhmFmXpvppg60FhCflbjqjbTeR0FjPVs0x6xXgK7ybEithivsPN3PDCxuZrjumC0Uysjs2ql4NFoT1l0Lb6xzahiAaeC7H9mEUBi37SVeJJ7N8wy2XLbSR31hBiu7GsITY6REker/Ku1BD7CHNzbLx6DXFsXn/ZKIl9hD3ZCFx8B9SoJa9G7M8YxpdD5vZgJSOSfNYMC7EqFjmdI8jjo/YS7QHYiBUxX+z2sU2nPD6iVtvWqD1YxL6Mrb2YpIp2QWJq2hyLEKtiOJPEETtUdMPia4gGfoRYDYtcFtch5sNEWJxaNmJVTHsf6CyuotszZB7kdeynxErYgiPfYP4tZV58b508PEKsillfSFFDxBYfMm+1YtK8thNm35NYCfMziQmLJ5kHwWEyz7bE7B4T+xzTaLOJzOr6bfadz6LweJYhVsLiTPLSPUaSS5YaYmUs25rRbpPeIHraKIlVsMVdD/pN3pUaYt/EJs32HFr2gg8oPckT24FBf5jTZR7+AxrX1IN2NUishHk/yBY78Cw1EYW4SSFWwLr1YiL3Q8r9aopYDfMJS26za6SzRaHrv1CDxCoYFt+vp1PmIQr+FkC2NIhVsfn55QqfkKwht4c2HbE9WL8DwUsVdmiJ7vFMbD+WL1d41mejqAsMYjUsaoiVit7ejCO2EtuLuUWSR3tTcgfUbMwR+yb2A1e8yFkpUudWAAAAAElFTkSuQmCC" alt="스마트스토어 QR">
+                <div class="qr-lbl">온라인 구매</div>
+                <div class="qr-sub">네이버 스마트스토어</div>
+            </div>
+            <div class="qr-box">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAB5ElEQVRoge2asZGFMAxExRAQ/hIohdJMaZRCCYQEDDppZRmOm/uZgUAbgfWIdiRbMsQuom4nqMf75g+ihQKri00ItUwD75Q0StTIastjv9p3KbDq2EfcmFs1C7YQz3DNMFnaA3sfNtgCgZ8+mlmB3Y5pQo36wmuDqvaPp4HVwEp9k+goD9CXMhjYc5jLMEko1LdhUcxjgVXGLpLMIngkD+M1GFgtzNyYc6bALKtvG6W5EwsXTaTA3oFN1GT3fvcyqtXKn5XBwOphUGL+1su4AquGDbBly7lTmhTJHfvYUiawN2BcNHXey8DT4iXyLbCqGJRm3Uc69l6GcCSwj+lU3wKrhGGXKX09oUnRvX6xqsecPQ3sBdh5D6LLKbqHp14GA6uKuRDVjlLr2yd/OBSzAquHISe0voEfEdK+nm2vF37P05XAnscmRPLc0m67VlsRcwkYUWB3YP1GZYZvo7DsnNe3wOpjyfZ69tFjY5N9SxkuV8CBPYwdsukxYvnykejoMwOribErJ1NbFo5rr4IHVgub4BR2Gfo7w/cGP7B3YH5TjPNyOUWXW0jjA7sTg/LxWH+f8L0nsNswVf7XTjMllUJHgb0E8/oG7Py7l+p0+RhYRcwlB7NjnIxCp67Jw/XkENhT2A+5z5La05MFjgAAAABJRU5ErkJggg==" alt="카카오톡 문의 QR">
+                <div class="qr-lbl">구매 · 상담 문의</div>
+                <div class="qr-sub">카카오톡 오픈채팅</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div><b>MWeaver HTMLBank v1.2.1</b> — AI 기반 영어 문제 자동 출제 프로그램 | Windows 10 이상</div>
+        <div>한국저작권위원회 저작권 등록 (제 C-2026-044674호)</div>
+    </div>
+
+</div>
+
+</body>
+</html>
