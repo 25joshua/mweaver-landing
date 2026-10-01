@@ -228,6 +228,23 @@
     .qr-box .qr-lbl { font-size: 7.5pt; font-weight: 700; color: var(--ink); margin-top: 1mm; }
     .qr-box .qr-sub { font-size: 6.5pt; color: var(--soft); }
 
+    /* ===== New features band ===== */
+    .new-band {
+        margin-bottom: 4mm;
+        border: 1px solid var(--cyan); border-radius: 2.5mm;
+        background: linear-gradient(180deg, #f2fbfd 0%, #ffffff 100%);
+        padding: 3.2mm 4.5mm;
+        display: flex; align-items: center; gap: 5mm;
+    }
+    .nb-tag {
+        flex-shrink: 0; background: var(--cyan); color: #06222b;
+        font-size: 8.5pt; font-weight: 800; padding: 2mm 3.5mm;
+        border-radius: 10px; text-align: center; line-height: 1.35;
+    }
+    .nb-items { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; flex: 1; }
+    .nb-item { font-size: 7.8pt; color: var(--soft); line-height: 1.5; }
+    .nb-item b { display: block; font-size: 8.8pt; color: var(--ink); margin-bottom: 0.8mm; }
+
     /* ===== Footer ===== */
     .footer {
         margin-top: auto;
@@ -259,7 +276,7 @@
             <div class="badge">Windows 설치형 · 영구 라이선스</div>
         </div>
         <h1>AI로 영어 문제를<br><em>1분 만에 자동 출제</em></h1>
-        <p class="sub">지문 하나로 <b>객관식 9유형 · 서술형 7유형</b> 문제, <b>워크시트 · 어휘 자료</b> 제작부터 <b>문제은행 관리</b>까지.<br>월정액 없이 한 번 구매로 영구 소장하는 고등 영어 교사용 출제 프로그램.</p>
+        <p class="sub">지문 하나로 <b>객관식 9유형 · 서술형 7유형</b> 문제 생성부터 <b>시험지 자동 조합 · 문제은행 관리</b>, <b>워크시트 · 어휘 자료</b> 제작까지.<br>월정액 없이 한 번 구매로 영구 소장하는 고등 영어 교사용 출제 프로그램.</p>
     </div>
 
     <div class="stats">
@@ -388,6 +405,16 @@
             </div>
         </div>
 
+        <!-- New in v1.3.0 -->
+        <div class="new-band">
+            <div class="nb-tag">v1.3.0<br>신규 기능</div>
+            <div class="nb-items">
+                <div class="nb-item"><b>시험지 자동 조합 (블루프린트)</b>출제 범위·유형·문항 수·배점을 지정하면 문제은행에서 시험지를 자동 조합하고, 부족한 문항은 범위 내 지문으로 AI가 새로 출제해 학생용/교사용 DOCX까지 생성</div>
+                <div class="nb-item"><b>이미지·PDF 지문 입력</b>교과서·기출문제 이미지(사진·캡처)나 PDF 파일에서 지문 텍스트를 자동 추출해 바로 문제 생성에 사용</div>
+                <div class="nb-item"><b>생성 문제 AI 교차 검증</b>생성된 문제를 제2의 AI가 다시 점검해 지문 불일치·선지 오류·중복 정답 등을 자동 필터링</div>
+            </div>
+        </div>
+
         <div class="sec-title">3단계로 완성</div>
         <div class="steps">
             <div class="step">
@@ -438,9 +465,9 @@
                 <p class="links">
                     🔗 <a href="https://25joshua.github.io/mweaver-landing/">25joshua.github.io/mweaver-landing</a>
                     &nbsp;|&nbsp;
-                    � <a href="https://smartstore.naver.com/mweaver/products/13768405110">스마트스토어 구매</a>
+                    🛒 <a href="https://smartstore.naver.com/mweaver/products/13768405110">스마트스토어 구매</a>
                     &nbsp;|&nbsp;
-                    �💬 <a href="https://open.kakao.com/o/sdsgOiNh">카카오톡 문의</a>
+                    💬 <a href="https://open.kakao.com/o/sdsgOiNh">카카오톡 문의</a>
                 </p>
             </div>
             <div class="qr-box">
