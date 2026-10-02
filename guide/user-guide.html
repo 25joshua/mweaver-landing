@@ -325,6 +325,8 @@
                         <li><a href="#problem-generation-sub-2">🔁 반복 실행으로 대량 문제 생성</a></li>
                         <li><a href="#problem-generation-sub-3">🔄 문제 수정 및 편집</a></li>
                         <li><a href="#problem-generation-sub-4">✍️ 서술형 출제</a></li>
+                        <li><a href="#problem-generation-sub-5">🖼️ 이미지/PDF 지문 입력</a></li>
+                        <li><a href="#problem-generation-sub-6">🔍 생성 문제 교차 검증</a></li>
                     </ul>
                 </li>
                 <li><a href="#study-material">5. 학습 자료 제작 (한줄해석·문법 분석)</a>
@@ -358,6 +360,8 @@
                         <li><a href="#excel-bank-sub-3">📂 문제 불러오기</a></li>
                         <li><a href="#excel-bank-sub-4">✏️ 문제 편집 및 관리</a></li>
                         <li><a href="#excel-bank-sub-5">문제 필터링으로 시험지 만들기</a></li>
+                        <li><a href="#excel-bank-sub-6">자동 내보내기 (문항별 파일 자동 생성)</a></li>
+                        <li><a href="#excel-bank-sub-7">시험지 블루프린트 자동 조합</a></li>
                     </ul>
                 </li>
                 <li><a href="#html-export">9. DOCX/HWPX/PDF/HTML 내보내기</a>
@@ -482,6 +486,27 @@
                         <li>선택한 지문으로 학습자료(5가지 유형)를 HTML, PDF, DOCX, HWPX로 일괄 생성</li>
                         <li>지문 더블 클릭 시 모든 편집창에 자동 입력</li>
                         <li>영어/한글 문장 수 불일치 자동 감지 및 주황색 표시</li>
+                    </ul>
+                </div>
+
+                <div class="api-card">
+                    <h4>🖼️ 이미지/PDF 지문 입력</h4>
+                    <p>이미지·스캔 PDF에서 지문 텍스트 자동 추출</p>
+                    <ul>
+                        <li>지문 사진, 캡처 이미지, PDF 파일에서 텍스트 자동 추출</li>
+                        <li>텍스트 레이어가 있는 PDF는 API 없이 로컬에서 무료 추출</li>
+                        <li>클립보드 이미지 직접 추가 지원</li>
+                        <li>번호(21, 21번, [21], 3-1 등) 단위로 자동 분리, 한글 블록은 같은 번호의 해석으로 매칭하여 커피 time 지문 목록에 저장</li>
+                        <li>추출 결과 미리보기에서 직접 수정·되돌리기 후 '새 지문으로 추가' 또는 '같은 번호 덮어쓰기'</li>
+                    </ul>
+                </div>
+
+                <div class="api-card">
+                    <h4>🔍 생성 문제 교차 검증</h4>
+                    <p>제2의 AI로 생성 문제 자동 점검</p>
+                    <ul>
+                        <li>저장소의 생성 문제를 생성에 쓰인 AI와 다른 AI가 자동 검수</li>
+                        <li>문항별 통과 / 검토 필요 / 오류 의심 3단계 판정과 지적 사항 표시</li>
                     </ul>
                 </div>
 
@@ -1000,6 +1025,106 @@
                 <strong>'HTML로 저장'</strong> 또는 <strong>'DOCX로 저장'</strong>으로 학생용/교사용 자료를 각각 저장하여 시험지 또는 답지로 활용합니다.
             </div>
 
+            <h3 id="problem-generation-sub-5">🖼️ 이미지/PDF 지문 입력</h3>
+            <div class="feature-box">
+                <p>교과서·모의고사 지문을 <strong>사진, 캡처 이미지, PDF</strong>로 그대로 가져와 AI가 텍스트로 자동 변환하고, 변환 결과를 <strong>커피 time 지문 목록</strong>에 번호별로 저장하는 기능입니다. 지문을 손으로 다시 입력할 필요 없이 스캔·캡처만으로 바로 출제 준비를 마칠 수 있습니다.</p>
+            </div>
+
+            <div class="info">
+                <strong>지원 파일 및 입력 방법</strong>
+                <ul>
+                    <li><strong>파일 추가:</strong> PNG, JPG, JPEG, WEBP, BMP, GIF, PDF 파일을 여러 개 한 번에 선택해 추가할 수 있습니다. 지원하지 않는 형식은 자동으로 건너뜁니다.</li>
+                    <li><strong>클립보드 이미지:</strong> 화면 캡처(캡처 도구, PrintScreen 등) 직후 클립보드의 이미지를 별도 저장 없이 바로 추가합니다.</li>
+                    <li><strong>선택 제거:</strong> 목록에서 항목을 선택해 불필요한 파일을 제거합니다.</li>
+                </ul>
+            </div>
+
+            <div class="info">
+                <strong>추출 방식</strong>
+                <ul>
+                    <li><strong>텍스트 레이어가 있는 PDF:</strong> API 호출 없이 로컬에서 즉시 추출됩니다. <strong>API 비용이 들지 않습니다.</strong></li>
+                    <li><strong>스캔 PDF / 이미지:</strong> 선택한 추출 API의 비전 기능으로 처리합니다. Gemini(비전), Mistral OCR, 비전을 지원하는 사용자 정의 API 중 선택할 수 있습니다.</li>
+                    <li>API 키가 등록된 추출 가능 API만 목록에 표시되며, 마지막으로 사용한 추출 API가 다음에도 기본 선택됩니다.</li>
+                    <li>PDF에서 텍스트가 너무 적게 추출되면(스캔본) 자동으로 비전 추출을 안내합니다.</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>이미지/PDF 지문 창 열기</strong><br>
+                메인 화면 사용자 입력 도구모음에서 <strong>'이미지/PDF 지문'</strong> 버튼('비우기' 옆)을 클릭합니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>대상 추가</strong><br>
+                <strong>'파일 추가'</strong>로 지문 이미지/PDF를 선택하거나, <strong>'클립보드 이미지'</strong>로 캡처본을 바로 추가합니다. 추가된 파일은 상단 목록에 [IMG]/[PDF] 태그로 표시됩니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>텍스트 추출</strong><br>
+                <strong>추출 API</strong>를 선택한 뒤 <strong>'텍스트 추출'</strong>을 누릅니다. 텍스트 레이어가 있는 PDF는 API 선택과 무관하게 로컬에서 즉시 추출됩니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>미리보기 검토·수정</strong><br>
+                추출 결과는 미리보기 창에서 <strong>직접 편집</strong>할 수 있습니다. 오인식 문자를 고치다 실수하면 <strong>'되돌리기'</strong> 버튼 또는 <strong>Ctrl+Z</strong>로 되돌릴 수 있습니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>커피 time 지문 목록에 반영</strong><br>
+                <strong>'새 지문으로 추가'</strong>는 번호별로 지문을 등록하며 같은 번호가 있으면 뒤에 이어 붙입니다. <strong>'같은 번호 덮어쓰기'</strong>는 같은 번호의 기존 지문을 확인 후 교체합니다. 커피 time 창이 닫혀 있으면 자동으로 열립니다.
+            </div>
+
+            <div class="info">
+                <strong>번호 블록 자동 인식 규칙</strong>
+                <ul>
+                    <li>인식되는 번호 마커: <code>21</code>, <code>21.</code>, <code>21번</code>, <code>[21]</code>, <code>[21번]</code>, <code>3-1</code>, <code>3-2</code> 등 (주번호 1~45)</li>
+                    <li>같은 번호 안에서 한글이 많은 블록은 해당 번호의 <strong>한글 해석</strong>으로 자동 매칭되어 따로 정리할 필요가 없습니다.</li>
+                    <li>번호 마커가 전혀 없는 텍스트는 영어 줄과 한글 줄을 자동 분리해 새 번호 1개로 저장합니다.</li>
+                </ul>
+            </div>
+
+            <h3 id="problem-generation-sub-6">🔍 생성 문제 교차 검증</h3>
+            <div class="feature-box">
+                <p>저장소에 모인 생성 문제를 <strong>생성에 사용한 AI와 다른 제2의 AI</strong>가 자동으로 점검하는 기능입니다. 같은 AI가 만든 문제를 같은 AI가 검사하면 오류를 놓치기 쉬우므로, 다른 AI의 관점에서 문항별로 <strong>통과 / 검토 필요 / 오류 의심</strong>을 판정하고 지적 사항을 보고합니다.</p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>교차 검증 창 열기</strong><br>
+                저장소 도구모음에서 <strong>'생성문제검증'</strong> 버튼('커피 time' 옆)을 클릭합니다. 저장소에 문제가 없으면 안내 메시지가 표시됩니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>검증 AI 선택</strong><br>
+                검증에 사용할 AI를 선택합니다. 기본값은 <strong>생성에 사용한 API와 다른 API</strong>가 자동으로 선택되며, 선택한 검증 AI는 다음 실행에도 기억됩니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>검증 실행</strong><br>
+                <strong>'검증 시작'</strong>을 누르면 저장소의 문제 전체와 사용자 입력의 지문이 함께 검증 AI로 전달되어 문항별로 평가됩니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>결과 확인</strong><br>
+                상단에 전체/통과/검토 필요/오류 의심 요약이 표시되고, 문제별 판정과 지적 사항이 색상으로 구분되어 나열됩니다. <strong>'리포트 지우기'</strong>로 결과를 초기화할 수 있습니다.
+            </div>
+
+            <div class="info">
+                <strong>주의 사항</strong>
+                <ul>
+                    <li>AI 검수 결과는 <strong>참고용</strong>입니다. 최종 판단은 교사가 직접 수행하세요.</li>
+                    <li>검증에도 선택한 API의 사용량이 소모됩니다.</li>
+                </ul>
+            </div>
+
         </div>
 
         <div class="section" id="study-material">
@@ -1480,6 +1605,133 @@
                     <li>"확인" 후 "DOCX로 저장", "HWPX로 저장" 또는 "PDF/HTML로 저장" - "학생용" 또는 "교사용" 또는 "둘다"를 선택하여 출력합니다.</li>
                 </ol>
             </div>
+
+            <h3 id="excel-bank-sub-6">자동 내보내기 (문항별 파일 자동 생성)</h3>
+            <div class="feature-box">
+                <p>자동 내보내기는 문제 필터링 창에서 문제를 저장소로 불러오는 과정 없이, 조건에 맞는 문제를 골라 DOCX/HWPX 파일로 바로 출력하는 기능입니다. 여러 문항의 문제를 한 번에 시험지 파일로 만들거나, 문항별 파일을 일괄 생성할 때 유용합니다.</p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>자동 내보내기 버튼 클릭</strong><br>
+                문제 필터링 창에서 1단계(출처 유형)와 2단계(세부 분류) 조건을 설정한 후 "자동 내보내기" 버튼을 클릭합니다. 설정한 필터 조건이 그대로 적용됩니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>문항 선택</strong><br>
+                조건에 맞는 문제가 있는 문항이 목록에 전부 표시됩니다. 현재 문항 필터가 특정 번호로 설정되어 있어도 문제가 있는 모든 문항이 표시되며, 복수 선택이 가능합니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>선택 방식 지정</strong><br>
+                <ul>
+                    <li><strong>문항/유형별 1문항씩:</strong> 각 문항에서 무작위 유형 하나를 골라 1문제씩 선택합니다. 선택한 모든 문항의 문제를 <strong>1개 파일로 합쳐서</strong> 출력하므로 여러 문항으로 구성된 시험지 한 부를 만들 때 사용합니다.</li>
+                    <li><strong>유형별 1문항씩:</strong> 각 문항의 유형별로 1문제씩 선택합니다. <strong>문항별로 별도 파일</strong>이 생성되므로 문항 단위 자료를 일괄 출력할 때 사용합니다.</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>출력 형식 선택</strong><br>
+                DOCX, HWPX, 둘 다 중 선택합니다. "자동편집 (DOCX만 적용)"을 체크하면 DOCX 파일이 페이지당 좌우 2단으로 자동 배치되어 출력됩니다.
+                <ul>
+                    <li>한 페이지에 단당 최대 2문항, 총 4문항까지 배치됩니다.</li>
+                    <li>서술형 문제는 한 단 전체를 차지합니다.</li>
+                    <li>4번째 문제가 긴 문제이면 해당 페이지는 3문항으로 자동 축소되어 문제가 잘리지 않습니다 (학생용/교사용 공통).</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>저장 모드 선택</strong><br>
+                학생용, 교사용, 둘 다 중 선택합니다. 학생용은 문제지와 별도 정답지 페이지가 출력되고, 교사용은 각 문제 아래에 정답과 해설이 함께 표시됩니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">6</span>
+                <strong>머리말과 로고 설정</strong><br>
+                시험지 제목(머리말)을 입력하고 로고 이미지를 선택할 수 있습니다. 제목은 첫 페이지 상단에 왼쪽 정렬·진하게·밑줄로 표시되고, 로고는 제목 왼쪽에 배치됩니다 (로고는 DOCX만 적용). 마지막으로 사용한 제목과 로고는 저장되어 다음 실행 시 자동으로 불러와집니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">7</span>
+                <strong>저장 폴더 지정 후 실행</strong><br>
+                "찾아보기"로 저장 폴더를 지정하고 "실행"을 누르면 파일이 생성됩니다.
+                <ul>
+                    <li><strong>파일명 규칙:</strong> 문항/유형별 모드는 <code>(학생용) 제목.docx</code>, 유형별 모드는 <code>(학생용) 제목_23번.docx</code> 형식으로 저장됩니다. 같은 이름의 파일이 있으면 <code>_2</code>, <code>_3</code> 번호가 자동으로 붙습니다.</li>
+                    <li><strong>중복 방지:</strong> 출력된 문제는 엑셀에 <code>($#%)</code> 기호가 자동으로 기록됩니다. 필터링 창에서 "이전에 선택한 문제 제외"를 체크하면 기록된 문제가 제외되어 중복 출제를 방지할 수 있습니다.</li>
+                </ul>
+            </div>
+
+            <h4>자동보내기 활용 예시</h4>
+            <div class="feature-box">
+                <p><strong>예시: 2025년 3월 모의고사 문항별 집중 훈련지 일괄 제작</strong></p>
+                <ol>
+                    <li>"문제불러오기"에서 모의고사용 엑셀 파일을 선택하고, 1단계 "모의고사", 2단계에서 학년·년도·월을 설정합니다.</li>
+                    <li>"자동보내기" 버튼을 클릭하고 문항 목록에서 원하는 문항(예: 18~24번)을 복수 선택합니다.</li>
+                    <li>선택 방식을 "유형별 1문항씩"으로 지정하면 문항별로 별도 파일이 생성되고, "문항/유형별 1문항씩"은 선택한 문항 전체가 1개 파일로 합쳐집니다.</li>
+                    <li>출력 형식(DOCX/HWPX/둘 다), 저장 모드(학생용/교사용/둘 다)를 선택하고 머리말에 "2025년 3월 모의고사"를 입력한 후 저장 폴더를 지정하고 실행합니다.</li>
+                    <li>지정한 폴더에 <code>(학생용) 2025년 3월 모의고사_18번.docx</code> 같은 문항별 파일이 자동 생성되고, 사용된 문제에는 중복 방지 기호가 기록됩니다.</li>
+                </ol>
+            </div>
+
+            <h3 id="excel-bank-sub-7">시험지 블루프린트 자동 조합</h3>
+            <div class="feature-box">
+                <p>저장소 도구모음의 <strong>'시험지 구성'</strong> 버튼으로 독립 창을 엽니다. <strong>출제 범위</strong>와 <strong>유형별 문항 수·배점(블루프린트)</strong>을 지정하면 문제 은행(엑셀)에서 조건에 맞는 문항을 자동으로 골라 시험지 한 부를 즉시 조합합니다. 은행 파일은 읽기 전용으로 사용되며, 조합 결과는 학생용·교사용 DOCX로 바로 출력할 수 있습니다.</p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>은행 파일 확인</strong><br>
+                창이 열리면 마지막으로 사용한 문제 은행 파일이 자동으로 불러와집니다. 다른 파일을 쓰려면 '은행 파일 선택'으로 지정하세요. 시험명은 출력 문서의 제목(머리말)으로 사용됩니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>출제 범위 설정</strong><br>
+                출처유형(모의고사/교과서/부교재/기타)을 복수로 체크하면 유형별 조건 행이 나타납니다. 각 조건 행에서 학년·년도·월·문항·교과서·출판사·단원·출처명·분류·추가 항목을 <strong>복수 선택</strong>할 수 있습니다(미선택 시 전체). '+ 조건 추가(OR)'로 행을 추가하면 <strong>행 안에서는 AND, 행끼리는 OR</strong>로 적용됩니다. 예: (2025년, 9월, 문항 20~24) + (2026년, 3월, 문항 30~33)처럼 서로 다른 범위를 한 시험지에 함께 출제할 수 있습니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>문항 구성(블루프린트) 설정</strong><br>
+                '+ 유형 추가'로 문제유형별 행을 만들어 개수와 문항당 점수를 지정합니다. '배점 자동 분배'를 누르면 목표 총점(기본 100점)을 문항 수에 맞춰 자동으로 나눕니다. 유형 목록에는 은행에 저장된 문제유형도 자동으로 포함됩니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>옵션 선택</strong><br>
+                <ul>
+                    <li><strong>기출제 문항 제외:</strong> 자동보내기 등으로 이미 출력된 문제(($#%) 기호)를 범위에서 제외합니다.</li>
+                    <li><strong>지문 중복 방지:</strong> 같은 지문에서 나온 문제가 한 시험지에 중복 출제되지 않도록 합니다.</li>
+                    <li><strong>유형 내 문항 섞기:</strong> 각 유형 안에서 문항 순서를 무작위로 섞습니다(유형 순서는 블루프린트 순서 유지).</li>
+                    <li><strong>부족 시 AI 자동 생성:</strong> 은행에 문항이 부족하면 AI가 부족분을 자동 생성합니다. 이때 지문은 별도로 입력하지 않고 <strong>출제 범위 안에 있는 기존 문제들의 '문제내용'에서 지문 본문만 자동 추출</strong>해 재료로 사용합니다(같은 지문은 한 번만 사용). 서술형 출제와 동일하게 라이선스·체험판 정책과 선택된 API가 적용되며, 생성 문항은 미리보기에 [AI생성]으로 표시됩니다.</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>조합 및 미리보기</strong><br>
+                '구성 미리보기'를 누르면 조합 결과(문항 번호·유형·배점·[AI생성] 표시)가 오른쪽 미리보기에 표시됩니다. 마음에 들지 않으면 범위나 구성을 바꾸고 '재조합'을 누르세요. 배점을 일부 비워두면 자동으로 분배됩니다.
+            </div>
+
+            <div class="step">
+                <span class="step-number">6</span>
+                <strong>출력 및 저장</strong><br>
+                '출력 양식'에서 템플릿을 고른 뒤 'DOCX 저장 (학생용+교사용)'을 누르면 각 문항의 질문 줄에 배점이 (X점) 형태로 자동 표기된 학생용과 교사용 파일이 함께 저장됩니다. AI로 생성된 문항은 '생성 문항 은행에 저장'으로 문제 은행에 추가해 다음 출제에 재사용할 수 있습니다.
+            </div>
+
+            <div class="info">
+                <strong>AI 자동 생성 지문 출처 (주의)</strong>
+                <ul>
+                    <li>AI 생성에 쓰이는 지문은 <strong>출제 범위로 필터링된 문제들의 지문</strong>입니다. 범위 밖의 문제나 저장소, 커피 time 지문은 사용되지 않습니다.</li>
+                    <li>출제 범위를 아주 좁게 잡으면(예: 문항 2~3개만) 지문 후보도 적어져, 부족 문항이 많을 때 같은 지문에서 유사한 문제가 생성될 수 있습니다.</li>
+                    <li>범위 내에 지문을 추출할 수 있는 문제가 하나도 없으면 해당 유형의 AI 생성이 건너뛰고 미리보기에 '지문이 없어 생성 건너뜀'이 표시됩니다.</li>
+                    <li>AI 생성 문항도 자동보내기와 달리 이 기능 자체가 기출제 기호(($#%))를 기록하지 않으므로, 은행 재저장 후 중복 관리는 '기출제 문항 제외' 옵션과 함께 활용하세요.</li>
+                </ul>
+            </div>
         </div>
 
         <div class="section" id="html-export">
@@ -1946,7 +2198,7 @@
             <h3>📞 문의</h3>
             <div class="contact-info">
                 <p><strong>카카오톡:</strong> <a href="https://open.kakao.com/o/sdsgOiNh" target="_blank">https://open.kakao.com/o/sdsgOiNh</a></p>
-                <p><strong>이메일:</strong> joshuagod@daum.net</p>
+                <p><strong>이메일:</strong> mweaver@daum.net</p>
             </div>
             <p><strong>버전:</strong> 1.3.0 | <strong>업데이트:</strong> 2026-10-02</p>
             <p>© 2026 MWeaver. All rights reserved.</p>

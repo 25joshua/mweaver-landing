@@ -481,6 +481,12 @@
             background: none; border: none; color: #111; font-size: 1.2rem; cursor: pointer; opacity: 0.7; line-height: 1;
         }
         #noticeClose:hover { opacity: 1; }
+
+        /* === Guide Document Links === */
+        .doc-link-row { text-align: center; margin-top: 32px; }
+        .doc-links { display: flex; gap: 24px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
+        .doc-links a { color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+        .doc-links a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -636,6 +642,9 @@
                 <h3>저장 및 출력</h3>
                 <p>HTML, PDF, DOCX(한워드/MS Word), HWPX(한컴오피스 한글), 엑셀로 저장. 학생용/교사용 분리 출력 지원.</p>
             </div>
+        </div>
+        <div class="doc-link-row fade-in">
+            <a href="guide/user-guide.html" target="_blank" class="btn-secondary">&#128214; 전체 기능 사용 안내서 보기</a>
         </div>
     </div>
 </section>
@@ -901,6 +910,10 @@
             </div>
             <a href="https://open.kakao.com/o/sdsgOiNh" target="_blank" class="btn-primary" style="margin-top:24px; display:inline-block;">카카오톡으로 구매 문의</a>
         </div>
+        <div class="doc-links fade-in">
+            <a href="guide/price-comparison.html" target="_blank">&#128202; 가격 비교표 보기</a>
+            <a href="guide/purchase-guide.html" target="_blank">&#128203; 구매 안내서 보기</a>
+        </div>
         <div class="trial-banner fade-in">
             <h3>먼저 무료로 체험해 보세요</h3>
             <p>정품 인증 없이도 300회 무료 사용 가능합니다.</p>
@@ -955,7 +968,7 @@
             <div class="faq-item">
                 <button class="faq-q" onclick="toggleFAQ(this)">바이러스 백신이 감지합니다. <span class="arrow">&#9662;</span></button>
                 <div class="faq-a"><div class="faq-a-inner">
-                    PyInstaller로 빌드된 실행 파일은 일부 백신에서 오탐지될 수 있습니다. 문위버(MWeaver)는 악성코드가 포함되어 있지 않으며, Windows Defender 예외 설정 또는 관리자 권한 실행으로 해결할 수 있습니다.
+                    PyInstaller로 빌드된 실행 파일은 일부 백신에서 오탐지될 수 있습니다. 문위버(MWeaver)는 악성코드가 포함되어 있지 않으며, Windows Defender 예외 설정 또는 관리자 권한 실행으로 해결할 수 있습니다. 자세한 내용은 <a href="guide/security-guide.html" target="_blank">보안 안내</a> 문서를 참고하세요.
                 </div></div>
             </div>
         </div>
@@ -996,7 +1009,7 @@
         <p>문위버 MWeaver HTMLBank v1.3.0 &mdash; AI 기반 영어 문제 자동 출제 프로그램</p>
         <p>&copy; 2025-2026 MWeaver Team. All rights reserved.</p>
         <p style="font-size:0.8rem; color:var(--text-soft); opacity:0.7;">본 프로그램은 한국저작권위원회에 저작권 등록됨 (제 C-2026-044674호)</p>
-        <p style="margin-top:8px;"><a href="https://open.kakao.com/o/sdsgOiNh" target="_blank">카카오톡 문의</a> | <a href="mailto:joshuagod@daum.net">이메일</a></p>
+        <p style="margin-top:8px;"><a href="https://open.kakao.com/o/sdsgOiNh" target="_blank">카카오톡 문의</a> | <a href="mailto:joshuagod@daum.net">이메일</a> | <a href="guide/security-guide.html" target="_blank">보안 안내</a></p>
     </div>
 </footer>
 
