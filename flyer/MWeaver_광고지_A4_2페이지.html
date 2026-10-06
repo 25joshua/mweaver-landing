@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MWeaver 광고지 (A4 2페이지)</title>
+<title>MWeaver 광고지 (A4 3페이지)</title>
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -30,6 +30,7 @@
         overflow: hidden;
         position: relative;
     }
+    .page > * { flex-shrink: 0; }
     @page { size: A4; margin: 0; }
     @media print {
         body { background: #fff; }
@@ -45,7 +46,7 @@
     .header {
         background: linear-gradient(135deg, #0a0f1a 0%, #0f172a 55%, #14324a 100%);
         color: #fff;
-        padding: 13mm 14mm 11mm;
+        padding: 10mm 14mm 9mm;
         position: relative;
         overflow: hidden;
     }
@@ -55,20 +56,20 @@
         background: radial-gradient(circle, rgba(0,184,217,0.22) 0%, transparent 65%);
     }
     .brand-row { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
-    .brand { font-size: 15pt; font-weight: 800; letter-spacing: 0.5px; }
+    .brand { font-size: 14pt; font-weight: 800; letter-spacing: 0.5px; }
     .brand span { color: var(--cyan); }
     .badge {
         border: 1px solid rgba(0,184,217,0.55); color: #7fe3f7;
-        font-size: 8pt; font-weight: 700; padding: 2.5mm 4mm; border-radius: 20px;
+        font-size: 7.5pt; font-weight: 700; padding: 2.5mm 4mm; border-radius: 20px;
         letter-spacing: 0.3px;
     }
     .header h1 {
-        font-size: 26pt; font-weight: 800; line-height: 1.28;
-        margin-top: 8mm; letter-spacing: -0.5px; position: relative; z-index: 1;
+        font-size: 25pt; font-weight: 800; line-height: 1.28;
+        margin-top: 6mm; letter-spacing: -0.5px; position: relative; z-index: 1;
     }
     .header h1 em { font-style: normal; color: var(--cyan); }
     .header .sub {
-        margin-top: 4.5mm; font-size: 10pt; color: #b9c6d8; line-height: 1.65;
+        margin-top: 4mm; font-size: 9pt; color: #b9c6d8; line-height: 1.6;
         position: relative; z-index: 1; max-width: 165mm;
     }
     .header .sub b { color: #fff; }
@@ -80,21 +81,21 @@
     }
     .stat { flex: 1; text-align: center; padding: 4.5mm 2mm; border-right: 1px solid var(--line); }
     .stat:last-child { border-right: none; }
-    .stat .num { font-size: 16pt; font-weight: 800; color: var(--cyan-dark); }
-    .stat .lbl { font-size: 8pt; color: var(--soft); margin-top: 1mm; font-weight: 600; }
+    .stat .num { font-size: 15pt; font-weight: 800; color: var(--cyan-dark); }
+    .stat .lbl { font-size: 7.5pt; color: var(--soft); margin-top: 1mm; font-weight: 600; }
 
     /* ===== Body ===== */
     .body { padding: 7mm 14mm 0; flex: 1; display: flex; flex-direction: column; }
 
     .sec-title {
-        font-size: 12pt; font-weight: 800; margin-bottom: 2.8mm;
+        font-size: 11pt; font-weight: 800; margin-bottom: 2.8mm;
         display: flex; align-items: center; gap: 3mm;
     }
     .sec-title::before {
         content: ""; width: 4mm; height: 4mm; background: var(--cyan);
         border-radius: 1mm; flex-shrink: 0;
     }
-    .sec-title small { font-size: 8.5pt; font-weight: 600; color: var(--soft); margin-left: 1mm; }
+    .sec-title small { font-size: 8pt; font-weight: 600; color: var(--soft); margin-left: 1mm; }
 
     /* ===== Compare table ===== */
     .compare {
@@ -103,10 +104,10 @@
         border: 1px solid var(--line);
     }
     .compare th, .compare td {
-        padding: 2.8mm 4mm; font-size: 8.5pt; text-align: left;
+        padding: 2.5mm 4mm; font-size: 7.8pt; text-align: left;
         border-bottom: 1px solid var(--line);
     }
-    .compare th { background: var(--navy); color: #fff; font-size: 9pt; }
+    .compare th { background: var(--navy); color: #fff; font-size: 8.2pt; }
     .compare th.mw { background: var(--cyan-dark); }
     .compare td.mw { background: #f0fafc; font-weight: 700; color: #06303a; }
     .compare tr:last-child td { border-bottom: none; }
@@ -119,16 +120,16 @@
     }
     .type-box .tb-head {
         background: var(--navy); color: #fff; padding: 2.8mm 4mm;
-        font-size: 9.5pt; font-weight: 800;
+        font-size: 8.7pt; font-weight: 800;
         display: flex; justify-content: space-between; align-items: center;
     }
     .type-box .tb-head .cnt {
-        background: var(--cyan); color: #06222b; font-size: 7.5pt;
+        background: var(--cyan); color: #06222b; font-size: 7pt;
         padding: 0.8mm 2.5mm; border-radius: 10px; font-weight: 800;
     }
     .type-box ul { padding: 3mm 4mm; }
     .type-box li {
-        list-style: none; font-size: 8pt; color: var(--soft); line-height: 1.7;
+        list-style: none; font-size: 7.4pt; color: var(--soft); line-height: 1.7;
         padding-left: 4mm; position: relative;
     }
     .type-box li::before {
@@ -146,16 +147,37 @@
     .feat-row .ico {
         width: 9.5mm; height: 9.5mm; border-radius: 2.5mm; flex-shrink: 0;
         display: flex; align-items: center; justify-content: center;
-        font-size: 13pt; background: rgba(0,184,217,0.1);
+        font-size: 12pt; background: rgba(0,184,217,0.1);
     }
-    .feat-row h3 { font-size: 10.5pt; font-weight: 800; margin-bottom: 1.2mm; }
+    .feat-row h3 { font-size: 9.5pt; font-weight: 800; margin-bottom: 1.2mm; }
     .feat-row h3 .tag {
         display: inline-block; background: var(--cyan); color: #06222b;
-        font-size: 7pt; font-weight: 800; padding: 0.6mm 2.2mm; border-radius: 8px;
+        font-size: 6.5pt; font-weight: 800; padding: 0.6mm 2.2mm; border-radius: 8px;
         margin-left: 1.5mm; vertical-align: 1px;
     }
-    .feat-row p { font-size: 8.2pt; color: var(--soft); line-height: 1.55; }
+    .feat-row p { font-size: 7.5pt; color: var(--soft); line-height: 1.55; }
     .feat-row p b { color: var(--ink); }
+    .feat-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5mm; margin-bottom: 2mm; }
+    .feat-grid2 .feat-row { margin-bottom: 0; }
+    .feat-grid2 .feat-row.wide { grid-column: 1 / -1; }
+
+    /* ===== Detail pages (2,3) — compact spacing ===== */
+    .pg-detail .body { padding-top: 4mm; }
+    .pg-detail .sec-title { margin: 3mm 0 2.5mm; }
+    .pg-detail .sec-title:first-child { margin-top: 0; }
+    .pg-detail .feat-grid2 { gap: 2.5mm; margin-bottom: 2mm; }
+    .pg-detail .feat-row { padding: 2.8mm 4.5mm; }
+    .pg-detail .steps { gap: 2.5mm; margin-bottom: 2mm; }
+    .pg-detail .step { padding: 2.2mm 3mm; }
+    .pg-detail .price-wrap { margin-bottom: 3mm; }
+    .pg-detail .cta { padding: 3mm 6mm; }
+    .callout {
+        border-left: 4px solid var(--cyan); background: var(--bg-soft);
+        border-radius: 0 2.5mm 2.5mm 0;
+        padding: 2.5mm 5mm; margin-bottom: 2.5mm;
+        font-size: 7.5pt; color: var(--soft); line-height: 1.55;
+    }
+    .callout b { color: var(--ink); }
 
     /* ===== Steps ===== */
     .steps { display: flex; gap: 4mm; margin-bottom: 2mm; }
@@ -167,10 +189,10 @@
         width: 4.2mm; height: 4.2mm; border-radius: 50%;
         background: var(--navy); color: var(--cyan);
         display: inline-flex; align-items: center; justify-content: center;
-        font-size: 7pt; font-weight: 800; margin-right: 1.4mm; vertical-align: 0.2mm;
+        font-size: 6.5pt; font-weight: 800; margin-right: 1.4mm; vertical-align: 0.2mm;
     }
-    .step h4 { display: inline; font-size: 9pt; font-weight: 800; }
-    .step p { font-size: 7.8pt; color: var(--soft); line-height: 1.55; }
+    .step h4 { display: inline; font-size: 8pt; font-weight: 800; }
+    .step p { font-size: 7pt; color: var(--soft); line-height: 1.5; }
 
     /* ===== Price ===== */
     .price-wrap { display: flex; gap: 5mm; margin-bottom: 2.5mm; }
@@ -187,21 +209,21 @@
     }
     .price-main .tag {
         display: inline-block; background: var(--cyan); color: #06222b;
-        font-size: 8pt; font-weight: 800; padding: 1.2mm 3mm; border-radius: 10px;
+        font-size: 7.5pt; font-weight: 800; padding: 1.2mm 3mm; border-radius: 10px;
         margin-bottom: 2.5mm; position: relative; z-index: 1;
     }
-    .price-main .pname { font-size: 10pt; font-weight: 700; color: #cdd8e5; position: relative; z-index: 1; }
-    .price-main .amount { font-size: 23pt; font-weight: 800; letter-spacing: -0.5px; margin: 1.2mm 0; position: relative; z-index: 1; }
+    .price-main .pname { font-size: 9pt; font-weight: 700; color: #cdd8e5; position: relative; z-index: 1; }
+    .price-main .amount { font-size: 21pt; font-weight: 800; letter-spacing: -0.5px; margin: 1.2mm 0; position: relative; z-index: 1; }
     .price-main .amount small { font-size: 9.5pt; font-weight: 500; color: #9fb2c8; }
-    .price-main .once { font-size: 9pt; color: #7fe3f7; font-weight: 700; position: relative; z-index: 1; }
+    .price-main .once { font-size: 8.2pt; color: #7fe3f7; font-weight: 700; position: relative; z-index: 1; }
     .price-main .upd {
         margin-top: 2.5mm; padding-top: 2.5mm; border-top: 1px solid rgba(255,255,255,0.15);
-        font-size: 7.8pt; color: #9fb2c8; line-height: 1.55; position: relative; z-index: 1;
+        font-size: 7pt; color: #9fb2c8; line-height: 1.5; position: relative; z-index: 1;
     }
     .price-incl { flex: 1; border: 1px solid var(--line); border-radius: 3mm; padding: 3.2mm 5mm; }
-    .price-incl h4 { font-size: 9.5pt; font-weight: 800; margin-bottom: 2mm; }
+    .price-incl h4 { font-size: 8.7pt; font-weight: 800; margin-bottom: 2mm; }
     .price-incl li {
-        list-style: none; font-size: 8.2pt; color: var(--soft); line-height: 1.55;
+        list-style: none; font-size: 7.5pt; color: var(--soft); line-height: 1.55;
         padding-left: 4.5mm; position: relative;
     }
     .price-incl li::before { content: "✓"; position: absolute; left: 0; color: var(--cyan-dark); font-weight: 800; }
@@ -215,18 +237,18 @@
         background: linear-gradient(180deg, #f2fbfd 0%, #ffffff 100%);
     }
     .cta-text { flex: 1; }
-    .cta-text h3 { font-size: 12pt; font-weight: 800; margin-bottom: 1.5mm; }
+    .cta-text h3 { font-size: 11pt; font-weight: 800; margin-bottom: 1.5mm; }
     .cta-text h3 em { font-style: normal; color: var(--cyan-dark); }
-    .cta-text p { font-size: 8.5pt; color: var(--soft); line-height: 1.6; }
-    .cta-text .links { margin-top: 2.5mm; font-size: 8pt; }
+    .cta-text p { font-size: 7.8pt; color: var(--soft); line-height: 1.6; }
+    .cta-text .links { margin-top: 2.5mm; font-size: 7.4pt; }
     .cta-text .links a { color: var(--cyan-dark); font-weight: 700; text-decoration: none; }
     .qr-box { text-align: center; flex-shrink: 0; }
     .qr-box img {
         width: 17mm; height: 17mm; display: block;
         border: 1px solid var(--line); border-radius: 2mm; padding: 1mm; background: #fff;
     }
-    .qr-box .qr-lbl { font-size: 7.5pt; font-weight: 700; color: var(--ink); margin-top: 1mm; }
-    .qr-box .qr-sub { font-size: 6.5pt; color: var(--soft); }
+    .qr-box .qr-lbl { font-size: 7pt; font-weight: 700; color: var(--ink); margin-top: 1mm; }
+    .qr-box .qr-sub { font-size: 6pt; color: var(--soft); }
 
     /* ===== New features band ===== */
     .new-band {
@@ -238,12 +260,12 @@
     }
     .nb-tag {
         flex-shrink: 0; background: var(--cyan); color: #06222b;
-        font-size: 8.5pt; font-weight: 800; padding: 2mm 3.5mm;
+        font-size: 7.8pt; font-weight: 800; padding: 2mm 3.5mm;
         border-radius: 10px; text-align: center; line-height: 1.35;
     }
-    .nb-items { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; flex: 1; }
-    .nb-item { font-size: 7.8pt; color: var(--soft); line-height: 1.5; }
-    .nb-item b { display: block; font-size: 8.8pt; color: var(--ink); margin-bottom: 0.8mm; }
+    .nb-items { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 3.5mm; flex: 1; }
+    .nb-item { font-size: 7.2pt; color: var(--soft); line-height: 1.5; }
+    .nb-item b { display: block; font-size: 8pt; color: var(--ink); margin-bottom: 0.8mm; }
 
     /* ===== Footer ===== */
     .footer {
@@ -251,7 +273,7 @@
         padding: 3mm 14mm 4mm;
         border-top: 1px solid var(--line);
         display: flex; justify-content: space-between; align-items: center;
-        font-size: 7.5pt; color: var(--soft);
+        font-size: 7pt; color: var(--soft);
     }
     .footer b { color: var(--ink); }
 
@@ -261,8 +283,8 @@
         padding: 4mm 14mm;
         display: flex; justify-content: space-between; align-items: center;
     }
-    .p2-head .brand { font-size: 11pt; }
-    .p2-head .pnum { font-size: 8pt; color: #8fa3bb; }
+    .p2-head .brand { font-size: 10pt; }
+    .p2-head .pnum { font-size: 7.5pt; color: #8fa3bb; }
 </style>
 </head>
 <body>
@@ -276,7 +298,7 @@
             <div class="badge">Windows 설치형 · 영구 라이선스</div>
         </div>
         <h1>AI로 영어 문제를<br><em>1분 만에 자동 출제</em></h1>
-        <p class="sub">지문 하나로 <b>객관식 9유형 · 서술형 7유형</b> 생성부터 <b>시험지 자동 조합</b>까지.<br><b>문제은행 · 학습·어휘 자료</b> 제작도 지원 — 한 번 구매로 영구 소장, 고등 영어 교사용.</p>
+        <p class="sub">지문 하나로 <b>객관식 9유형 · 서술형 7유형</b>부터 <b>시험지 조합 · OMR 채점·보강</b>까지.<br><b>문제은행 · 학습·어휘 자료</b> 제작 지원 — 한 번 구매로 영구 소장, 고등 영어 교사용.</p>
     </div>
 
     <div class="stats">
@@ -321,6 +343,11 @@
                 <td>제공사 지정 모델만 사용</td>
                 <td class="mw">Gemini·Mistral 내장 + 사용자 정의 슬롯 4개로 OpenAI·Claude·Groq·OpenRouter 등 연동 — 무료 모델도 간편 사용</td>
             </tr>
+            <tr>
+                <td>시험 운영</td>
+                <td>문제 생성만 지원 — 채점·분석·보강은 별도 수작업</td>
+                <td class="mw">OMR 답안지 자동 채점 → 성적·문항 분석 → 학생별 오답 보강지 일괄 저장까지 한 프로그램에서 완결</td>
+            </tr>
         </table>
 
         <div class="sec-title">19가지 문제 유형 전체 제공 <small>— 객관식부터 서술형까지 내신 전 유형 대응</small></div>
@@ -350,7 +377,7 @@
         </div>
 
         <div class="sec-title">출제자가 출제 포인트를 직접 지정</div>
-        <p style="font-size:9pt; color:var(--soft); line-height:1.7; margin-bottom:2mm;">
+        <p style="font-size:8pt; color:var(--soft); line-height:1.7; margin-bottom:2mm;">
             각 문제 유형별 전용 편집창에서 드래그·클릭·문단 분할로 출제 포인트를 지정하면, AI가 해당 포인트를 중심으로 문제를 생성합니다.
             <b style="color:var(--ink);">우리 학교의 출제 경향이 그대로 반영</b>되어, 단순 자동 생성 도구와 결과물의 결이 다릅니다.
         </p>
@@ -359,63 +386,105 @@
 
     <div class="footer">
         <div><b>MWeaver HTMLBank v1.3.0</b> — AI 기반 영어 문제 자동 출제 프로그램 | Windows 10 이상</div>
-        <div>1 / 2</div>
+        <div>1 / 3</div>
     </div>
 
 </div>
 
 <!-- ================= PAGE 2 ================= -->
-<div class="page">
+<div class="page pg-detail">
 
     <div class="p2-head">
         <div class="brand">M<span>W</span>eaver <span style="font-weight:400; font-size:8pt; color:#8fa3bb;">HTMLBank</span></div>
-        <div class="pnum">기능 상세 · 가격 · 문의</div>
+        <div class="pnum">기능 상세 — 자료 제작 · 문제은행 · 출력</div>
     </div>
 
     <div class="body" style="padding-top:3mm;">
 
-        <div class="sec-title">문제 생성을 넘어 — 자료 제작과 문제은행까지</div>
+        <div class="sec-title">문제 생성을 넘어 — 수업 자료 · 문제은행 · 출력까지</div>
 
+        <div class="feat-grid2">
         <div class="feat-row">
             <div class="ico">📖</div>
             <div>
                 <h3>워크시트 · 학습 자료 자동 생성</h3>
-                <p>한줄해석 + <b>AI 문법 분석(50+ 내장 문법 규칙 결합)</b>, 해석 TEST지, 단어 배열 TEST지, 빈칸 연습지, 영작 연습지를 지문 하나로 자동 제작. 수업 자료와 과제지를 별도 작업 없이 바로 출력합니다.</p>
+                <p>지문 하나로 <b>한줄해석 + AI 문법 분석(50+ 내장 문법 규칙 결합)</b>, 해석 TEST지, 단어 배열 TEST지, 빈칸 연습지, 영작 연습지를 자동 제작합니다. 수업용 워크시트와 과제지를 별도 편집 작업 없이 바로 출력할 수 있습니다.</p>
             </div>
         </div>
         <div class="feat-row">
             <div class="ico">📚</div>
             <div>
                 <h3>어휘 학습 자료</h3>
-                <p>지문에서 어휘 후보를 자동 추출하고, AI가 <b>문맥에 맞는 의미·유의어·반의어</b>를 생성합니다. 단어장과 단어 테스트지를 자동 제작하여 어휘 평가 준비 시간을 줄입니다.</p>
+                <p>지문에서 어휘 후보를 자동 추출하고, AI가 <b>문맥에 맞는 의미·유의어·반의어</b>를 생성합니다. 단어장과 단어 테스트지를 자동 제작하여 어휘 평가 준비 시간을 크게 줄입니다.</p>
             </div>
         </div>
         <div class="feat-row">
             <div class="ico">📊</div>
             <div>
                 <h3>엑셀 문제은행 + 자동보내기 <span class="tag">차별화</span></h3>
-                <p>생성된 문제를 엑셀에 축적하고 출처·학년·유형 등 조건별 필터링으로 검색. <b>자동보내기</b>로 문항을 복수 선택하면 문항별 DOCX/HWPX 시험지 파일을 일괄 자동 생성 — 머리말·로고 적용, 학생용/교사용 동시 출력, 출제된 문제 중복 방지 기록까지 한 번에 처리됩니다.</p>
+                <p>생성된 모든 문제가 엑셀 문제은행에 자동 축적되고 출처·학년·유형·난이도 등 조건별 필터링으로 검색합니다. <b>자동보내기</b>로 문항을 복수 선택하면 문항별 DOCX/HWPX 시험지 파일을 일괄 자동 생성 — 머리말·로고 적용, 학생용/교사용 동시 출력, 출제된 문제 중복 방지 기록까지 한 번에 처리됩니다.</p>
             </div>
         </div>
         <div class="feat-row">
             <div class="ico">🖨️</div>
             <div>
                 <h3>5가지 출력 포맷 · 학생용/교사용 분리</h3>
-                <p><b>DOCX(한워드·MS Word 호환) · HWPX · PDF · HTML · Excel</b>로 출력. 모든 출력에서 학생용 문제지와 교사용 정답·해설지를 자동 분리 생성합니다.</p>
+                <p><b>DOCX(한워드·MS Word 호환) · HWPX · PDF · HTML · Excel</b> 5가지 포맷으로 출력합니다. 모든 출력에서 학생용 문제지와 교사용 정답·해설지를 자동으로 분리 생성해, 인쇄·배포 준비가 즉시 완료됩니다.</p>
             </div>
         </div>
-
-        <!-- New in v1.3.0 -->
-        <div class="new-band">
-            <div class="nb-tag">v1.3.0<br>신규 기능</div>
-            <div class="nb-items">
-                <div class="nb-item"><b>시험지 자동 조합 (블루프린트)</b>범위·유형·배점 지정으로 문제은행에서 시험지 자동 조합, 부족 문항은 AI 생성</div>
-                <div class="nb-item"><b>이미지·PDF 지문 입력</b>교과서·기출 이미지나 PDF에서 지문 텍스트를 자동 추출해 바로 출제</div>
-                <div class="nb-item"><b>생성 문제 AI 교차 검증</b>제2의 AI가 생성 문제를 다시 점검해 오류를 자동 필터링</div>
-            </div>
         </div>
 
-        <div class="sec-title">3단계로 완성</div>
+        <div class="sec-title">v1.3.0 신규 기능 <small>— 지문 입력부터 채점까지 커버 범위가 넓어졌습니다</small></div>
+        <div class="feat-grid2">
+        <div class="feat-row">
+            <div class="ico">🧩</div>
+            <div>
+                <h3>시험지 자동 조합 (블루프린트) <span class="tag">v1.3.0 신규</span></h3>
+                <p>범위·유형·난이도·배점을 지정하면 문제은행에서 조건에 맞는 문항을 자동 조합해 시험지를 완성합니다. 부족한 문항은 AI가 즉시 생성해 채우고, 학생용/교사용이 동시에 출력됩니다.</p>
+            </div>
+        </div>
+        <div class="feat-row">
+            <div class="ico">🖼️</div>
+            <div>
+                <h3>이미지 · PDF 지문 입력 <span class="tag">v1.3.0 신규</span></h3>
+                <p>교과서·모의고사·기출문제의 이미지나 PDF를 불러오면 지문 텍스트를 자동 추출해 바로 출제할 수 있습니다. 타이핑 없이 기존 자료를 그대로 재활용합니다.</p>
+            </div>
+        </div>
+        <div class="feat-row">
+            <div class="ico">🔍</div>
+            <div>
+                <h3>생성 문제 AI 교차 검증 <span class="tag">v1.3.0 신규</span></h3>
+                <p>생성된 문제를 제2의 AI가 다시 점검하여 오류·부적합 선지·중복 정답을 자동 필터링합니다. 교사가 일일이 검토하는 시간을 크게 줄입니다.</p>
+            </div>
+        </div>
+        <div class="feat-row">
+            <div class="ico">✅</div>
+            <div>
+                <h3>채점·분석 (OMR) · 개인별 오답 보강 <span class="tag">v1.3.0 신규</span></h3>
+                <p>전용 OMR 답안지를 스캔하면 자동 채점·성적 분석이 완료되고, <b>버튼 한 번으로 오답이 있는 전원의 보강지가 학생별 DOCX로 일괄 저장</b>됩니다. <b>상세 안내는 다음 페이지</b>를 참조하세요.</p>
+            </div>
+        </div>
+        </div>
+
+        <div class="sec-title">AI 선택 · 실행 방식 <small>— 무료 모델부터 고급 모델까지 자유롭게</small></div>
+        <div class="feat-grid2">
+        <div class="feat-row">
+            <div class="ico">🤖</div>
+            <div>
+                <h3>AI 엔진 자유 선택</h3>
+                <p><b>Gemini·Mistral 내장</b>으로 별도 설정 없이 바로 사용하고, <b>사용자 정의 슬롯 4개</b>에 OpenAI·Claude·Groq·OpenRouter 등 원하는 AI API 키를 연동할 수 있습니다. 무료 티어 모델도 간편하게 사용 가능하고, 유형별로 다른 AI를 지정할 수 있습니다.</p>
+            </div>
+        </div>
+        <div class="feat-row">
+            <div class="ico">⚡</div>
+            <div>
+                <h3>개별 · 일괄 · 반복 실행</h3>
+                <p>유형 하나씩 개별 실행, 최대 19개 유형 <b>일괄 실행</b>, 지문 여러 개를 순서대로 처리하는 <b>반복 실행</b>을 지원합니다. 어법·순서 배열·문장 삽입 유형은 내장 로직으로 동작해 <b>API 비용 0원</b>입니다.</p>
+            </div>
+        </div>
+        </div>
+
+        <div class="sec-title">4단계로 완성 <small>— 출제부터 시행·채점·개인별 보강까지</small></div>
         <div class="steps">
             <div class="step">
                 <div class="snum">1</div><h4>지문 입력 · 포인트 지정</h4>
@@ -429,6 +498,107 @@
                 <div class="snum">3</div><h4>출력 · 문제은행 축적</h4>
                 <p>DOCX/HWPX 등으로 출력하고 문제은행에 저장해 다음 시험에 재활용합니다.</p>
             </div>
+            <div class="step">
+                <div class="snum">4</div><h4>시행 · 채점 · 개인별 보강</h4>
+                <p>OMR 답안지로 시험 후 스캔만 하면 자동 채점·분석되고, 오답 전원 보강지를 학생별 DOCX로 일괄 저장합니다.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <div><b>MWeaver HTMLBank v1.3.0</b> — AI 기반 영어 문제 자동 출제 프로그램 | Windows 10 이상</div>
+        <div>2 / 3</div>
+    </div>
+
+</div>
+
+<!-- ================= PAGE 3 ================= -->
+<div class="page pg-detail">
+
+    <div class="p2-head">
+        <div class="brand">M<span>W</span>eaver <span style="font-weight:400; font-size:8pt; color:#8fa3bb;">HTMLBank</span></div>
+        <div class="pnum">채점·분석 상세 · 가격 · 문의</div>
+    </div>
+
+    <div class="body" style="padding-top:4mm;">
+
+        <div class="sec-title">채점·분석 (OMR) — 시행부터 개인별 보강까지 <small>v1.3.0 신규</small></div>
+        <p style="font-size:7.5pt; color:var(--soft); line-height:1.55; margin-bottom:2mm;">
+            시험을 치르는 순간부터 보강지 출력까지 별도 프로그램 없이 MWeaver 하나로 완결됩니다.
+            시험지에 포함된 <b style="color:var(--ink);">전용 OMR 답안지</b>로 시행한 뒤 스캔 이미지·PDF만 불러오면 나머지는 자동입니다.
+        </p>
+
+        <div class="steps">
+            <div class="step">
+                <div class="snum">1</div><h4>시험 세션 생성</h4>
+                <p>학생 명단 등록, 시험코드 자동 발급, 전용 OMR 답안지 출력.</p>
+            </div>
+            <div class="step">
+                <div class="snum">2</div><h4>시행 · 스캔</h4>
+                <p>답안지를 일반 스캐너·복합기로 스캔해 이미지·PDF로 불러옵니다.</p>
+            </div>
+            <div class="step">
+                <div class="snum">3</div><h4>자동 판독 · 채점</h4>
+                <p>시험코드 자동 매칭, 객관식·단답형 자동 채점, 서술형은 AI 비전 OCR.</p>
+            </div>
+            <div class="step">
+                <div class="snum">4</div><h4>정정 · 분석</h4>
+                <p>판정 O/X 정정·부분점수 입력, 성적표·문항별 정답률 엑셀 저장.</p>
+            </div>
+            <div class="step">
+                <div class="snum">5</div><h4>개인별 보강지</h4>
+                <p>오답과 같은 지문·유형의 문항을 자동 추출 — 전원 분량을 학생별 DOCX로 한 번에 저장.</p>
+            </div>
+        </div>
+
+        <div class="feat-grid2">
+        <div class="feat-row">
+            <div class="ico">🗂️</div>
+            <div>
+                <h3>시험 세션 관리</h3>
+                <p>저장소의 <b>'채점·분석' 버튼</b>에서 시험(세션)별로 학생 명단·제출 답안·채점 결과를 한곳에 관리합니다. 시험마다 고유 시험코드가 부여되어 답안지·스캔 파일과 자동으로 연결됩니다.</p>
+            </div>
+        </div>
+        <div class="feat-row">
+            <div class="ico">📄</div>
+            <div>
+                <h3>전용 OMR 답안지 출력</h3>
+                <p>시험코드와 학생 번호 마킹 영역이 포함된 <b>전용 OMR 답안지</b>를 프로그램에서 바로 출력합니다. 별도 OMR 장비 없이 일반 스캐너·복합기·스마트폰 촬영 이미지로 판독할 수 있습니다.</p>
+            </div>
+        </div>
+        <div class="feat-row">
+            <div class="ico">🔎</div>
+            <div>
+                <h3>스캔 판독 · 자동 매칭</h3>
+                <p>스캔 이미지·PDF를 불러오면 <b>시험코드를 자동 인식</b>해 해당 시험 세션에 매칭하고, 학생 번호 마킹과 각 문항의 답안 마킹을 일괄 판독합니다. 학생별 결과가 자동으로 정리됩니다.</p>
+            </div>
+        </div>
+        <div class="feat-row">
+            <div class="ico">🤖</div>
+            <div>
+                <h3>자동 채점 + 서술형 AI 비전 OCR</h3>
+                <p>객관식·단답형은 즉시 자동 채점되고, 서술형 기입 박스에 손글씨·인쇄로 작성된 답안은 <b>AI 비전 OCR</b>로 읽어 채점합니다. 판정 결과는 O/X 클릭 정정과 점수 직접 입력(부분 점수)으로 수정할 수 있습니다.</p>
+            </div>
+        </div>
+        <div class="feat-row">
+            <div class="ico">📈</div>
+            <div>
+                <h3>성적표 · 문항별 정답률 분석</h3>
+                <p>학생별 성적표와 문항별 정답률·오답 분포 분석표를 <b>엑셀 파일로 저장</b>합니다. 어떤 문항·어떤 유형에서 오답이 몰렸는지 한눈에 파악해 다음 수업·재시험 계획에 바로 활용합니다.</p>
+            </div>
+        </div>
+        <div class="feat-row">
+            <div class="ico">🎯</div>
+            <div>
+                <h3>개인별 오답 보강지 자동 출력 · 전원 일괄 저장</h3>
+                <p>학생이 틀린 문항과 <b>같은 지문·같은 유형의 문제를 문제은행에서 자동 추출</b>해 개인 전용 보강지로 만듭니다. '오답 보강문제'는 학생 한 명씩 저장소로 출력하고, <b>'전원 보강지 일괄 저장'은 버튼 한 번으로 오답이 있는 모든 학생의 보강지를 학년-반-이름 파일명의 개별 DOCX로 자동 저장</b>합니다. 학생 수만큼 반복할 필요가 없습니다.</p>
+            </div>
+        </div>
+        </div>
+
+        <div class="callout">
+            <b>실제 수업 적용 예</b> — 월: 지문 입력 후 19개 유형 일괄 생성, 시험지 + OMR 답안지 출력 → 수: 시행 뒤 스캔 파일 불러오기, 자동 채점 약 10분 → 목: '전원 보강지 일괄 저장' 한 클릭으로 반 전원의 맞춤 보강지를 학생별 DOCX로 저장·배부. 채점과 보강 준비에 쓰던 시간이 사라집니다.
         </div>
 
         <div class="sec-title">가격 및 라이선스</div>
@@ -449,6 +619,7 @@
                     <li>19가지 문제 유형 전체</li>
                     <li>학습 자료 · 어휘 자료 · 문제은행</li>
                     <li>5가지 출력 포맷</li>
+                    <li><b>채점·분석 (OMR) · 개인별 오답 보강지 + 전원 일괄 저장</b></li>
                     <li><b>구매 1년 후 서버 인증 없이 영구 작동</b></li>
                     <li>체험판 300회 무료 (구매 전)</li>
                 </ul>
@@ -488,7 +659,7 @@
 
     <div class="footer">
         <div><b>MWeaver HTMLBank v1.3.0</b> — AI 기반 영어 문제 자동 출제 프로그램 | Windows 10 이상</div>
-        <div>한국저작권위원회 저작권 등록 (제 C-2026-044674호) | 2 / 2</div>
+        <div>한국저작권위원회 저작권 등록 (제 C-2026-044674호) | 3 / 3</div>
     </div>
 
 </div>
