@@ -155,6 +155,16 @@
         .hero-stat-num { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-shadow: 0 0 20px rgba(0,212,255,0.2); }
         .hero-stat-label { font-size: 0.85rem; color: var(--text-soft); margin-top: 4px; }
 
+        /* === Intro Video === */
+        .intro-video-section { padding: 0 0 80px; }
+        .intro-video-wrap {
+            max-width: 880px; margin: 0 auto;
+            border-radius: var(--radius); overflow: hidden;
+            border: 1px solid var(--border); box-shadow: var(--shadow-lg);
+            background: var(--bg-card);
+        }
+        .intro-video-wrap video { display: block; width: 100%; height: auto; }
+
         /* === Section === */
         section { padding: 80px 0; }
         .section-title { text-align: center; margin-bottom: 56px; }
@@ -591,6 +601,22 @@
         </div>
     </div>
 </div>
+
+<!-- Intro Video -->
+<section id="intro" class="intro-video-section">
+    <div class="container">
+        <div class="section-title fade-in">
+            <h2>문위버 소개 영상</h2>
+            <p>설치부터 문제 생성·검증·시험지 조합·채점까지, 문위버의 전체 활용 흐름을 영상으로 확인해 보세요.</p>
+        </div>
+        <div class="intro-video-wrap fade-in">
+            <video controls preload="metadata" playsinline>
+                <source src="assets/mweaver-intro.mp4" type="video/mp4">
+                사용 중인 브라우저가 동영상 재생을 지원하지 않습니다.
+            </video>
+        </div>
+    </div>
+</section>
 
 <!-- Killer Features (v1.3.0) -->
 <section id="killer" class="killer-section">
